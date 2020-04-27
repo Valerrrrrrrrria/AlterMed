@@ -15,7 +15,7 @@ import com.example.myapplication0103.ui.acts.ActsFragment;
 public class DBHelper extends SQLiteOpenHelper {
 
     public static final int DATABASE_VERSION = 1;
-    public static final String DATABASE_NAME = "altermedicaDB2003(6)"; // Имя БД
+    public static final String DATABASE_NAME = "altermedicaDB2003(7)"; // Имя БД
     public static final String TABLE_ACTS = "acts"; // Для заголовков столбцов таблицы АКТЫ ИМПЛАНТАЦИИ
     public static final String TABLE_BARCODESACTS = "barcodesacts"; // Для заголовков столбцов таблицы ШТРИХКОДЫ В АКТАХ ИМПЛАНТАЦИИ
 
@@ -53,7 +53,7 @@ public class DBHelper extends SQLiteOpenHelper {
         db.execSQL("create table " + TABLE_ACTS + "(" + KEY_ID + " integer primary key,"
                 + KEY_ACTID + " integer," + KEY_DATE + " text," + KEY_NUMB + " text," + KEY_DRNAME
                 + " text," + KEY_PATNAME + " text," + KEY_HISTORY + " text,"
-                + KEY_COMMENT + " text," + KEY_ACTPHOTO + " blob," + KEY_ISSENT + " integer" + ")");
+                + KEY_COMMENT + " text," + KEY_ACTPHOTO + " text," + KEY_ISSENT + " integer" + ")");
 
         db.execSQL("create table " + TABLE_BARCODESACTS + "(" + KEY_ACTBARID + " integer,"
                 + KEY_BARCODESACTS + " text," + KEY_PHOTO + " blob," + KEY_PHOTO2 + " blob" + ")");
@@ -141,7 +141,7 @@ public class DBHelper extends SQLiteOpenHelper {
                         ", PatName = " + cursor.getString(idPatName) +
                         ", History= " + cursor.getString(idHistory) +
                         ", Comment = " + cursor.getString(idComment) +
-                        ", Photo = " + cursor.getBlob(idPhoto) +
+                        ", Photo = " + cursor.getString(idPhoto) +
                         ", IS SENT? " + cursor.getInt(idIsSent));
             } while (cursor.moveToNext());
 
@@ -194,7 +194,7 @@ public class DBHelper extends SQLiteOpenHelper {
                 ActsFragment.patName_arrayList.add(cursor.getString(idPatName));
                 ActsFragment.historyNumb_arrayList.add(cursor.getString(idHistory));
                 ActsFragment.comments_arrayList.add(cursor.getString(idComment));
-                ActsFragment.photoOfAct = cursor.getBlob(idPhoto);
+                ActsFragment.photoOfAct = cursor.getString(idPhoto);
                 ActsFragment.outputs_arrayList.add(cursor.getString(idDate) + " " + cursor.getInt(idNumb) + " " + cursor.getString(idPatName));
                 Log.i("IDDDDD ", "" + cursor.getInt(idNumb));
             } while (cursor.moveToNext());
@@ -261,7 +261,7 @@ public class DBHelper extends SQLiteOpenHelper {
         }
     }
 
-    public static void addToDatabaseActs(SQLiteDatabase db, int actID, int uniqId, String historyNum, String date, String patName, String drName, byte[] photo, String comment) {
+    public static void addToDatabaseActs(SQLiteDatabase db, int actID, int uniqId, String historyNum, String date, String patName, String drName, String photo, String comment) {
         ContentValues contentValues = new ContentValues();
         contentValues.put(DBHelper.KEY_ACTID, actID);
         contentValues.put(DBHelper.KEY_NUMB, uniqId);

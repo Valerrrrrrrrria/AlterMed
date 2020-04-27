@@ -7,9 +7,12 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.database.Cursor;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.util.Base64;
 import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
@@ -26,6 +29,8 @@ import com.example.myapplication0103.Common;
 import com.example.myapplication0103.DBHelper;
 import com.example.myapplication0103.R;
 
+import java.io.ByteArrayInputStream;
+import java.io.InputStream;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -88,7 +93,7 @@ public class ActsEditorActivity extends AppCompatActivity {
         // Переменная для query
         String selection = null;
 
-        test_imageView = (ImageView) findViewById(R.id.test_imageView);
+        //test_imageView = (ImageView) findViewById(R.id.test_imageView);
 
 
         EditText patName_textView = (EditText) findViewById(R.id.patName_editText);
@@ -310,6 +315,31 @@ public class ActsEditorActivity extends AppCompatActivity {
             }
         });
 
+        final ImageView showPhoto_imageView = (ImageView) findViewById(R.id.showPhoto_imageView);
+
+        final Button showPhoto_button = findViewById(R.id.showPhoto_button);
+        showPhoto_button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                int id = ActsFragment.id_arrayList.get(actId);
+
+                String selection1;
+                selection1 = "_actid = " + id;
+                Cursor c = ActsFragment.database.query(DBHelper.TABLE_ACTS, null, selection1, null, null,
+                        null, null);
+                DBHelper.readMyDatabaseActs(c);
+                c.close();
+
+                byte[] newImg3 = Base64.decode(ActsFragment.photoOfAct, 0);
+                InputStream inputStream2  = new ByteArrayInputStream(newImg3);
+                Bitmap bitmap2  = BitmapFactory.decodeStream(inputStream2);
+                Log.i("", "" + bitmap2.getWidth() + ", " + bitmap2.getHeight());
+
+                showPhoto_imageView.setImageBitmap(bitmap2);
+
+
+            }
+        });
 
         Button saveToActs_button = findViewById(R.id.saveToActs);
         saveToActs_button.setOnClickListener(new View.OnClickListener() {

@@ -89,7 +89,7 @@ public class Common {
     }
 
     public static String createJSONForImpl (String hospitalId, String fio, String cardNum, String date,
-                                            String doctor, String comment, byte[] photo, ArrayList<String> barcodesArray,
+                                            String doctor, String comment, String photo, ArrayList<String> barcodesArray,
                                             ArrayList<byte[]> barcodesPhoto1, ArrayList<byte[]> barcodesPhoto2) {
 
         // поля объекта

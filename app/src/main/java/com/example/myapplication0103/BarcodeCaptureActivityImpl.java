@@ -184,7 +184,7 @@ public final class BarcodeCaptureActivityImpl extends AppCompatActivity implemen
                         ByteArrayOutputStream bos = new ByteArrayOutputStream();
 
                         // Проверить true или false
-                        if (!bitmap.compress(Bitmap.CompressFormat.JPEG, 0, bos))
+                        if (!bitmap.compress(Bitmap.CompressFormat.JPEG, 10, bos))
                             throw new IllegalArgumentException("Bitmap compress error!!");
 
                         byte[] newImg = bos.toByteArray();
@@ -204,7 +204,7 @@ public final class BarcodeCaptureActivityImpl extends AppCompatActivity implemen
                         Log.i("", "Image saved!!!");
 
                         //ActsFragment.photoOfAct = newImg; // !!! Это data jpeg !!!
-                        ActsFragment.photoOfAct = newImg; // !!! Это data jpeg !!!
+                        ActsFragment.photoOfAct = newImg2; // !!! Это data jpeg !!!
                     }
                 });
             }

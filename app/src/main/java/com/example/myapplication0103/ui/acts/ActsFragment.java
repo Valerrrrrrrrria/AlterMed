@@ -44,7 +44,7 @@ public class ActsFragment extends Fragment {
     public static ArrayList<String> comments_arrayList; // Список комментариев к акту
     public static ArrayList<String> drName_arrayList; // Список врачей
     public static ArrayList<String> historyNumb_arrayList; // Список историй болезни
-    public static byte[] photoOfAct = new byte[10000];
+    public static String photoOfAct;
 
     public static ArrayList<String> outputs_arrayList; // Список для вывода в ListView
 
