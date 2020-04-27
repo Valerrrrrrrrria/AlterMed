@@ -157,6 +157,8 @@ public final class BarcodeCaptureActivityImpl extends AppCompatActivity implemen
                 Snackbar.LENGTH_LONG)
                 .show();
 
+        // Строка
+
         Button photoOfAct_button = (Button) findViewById(R.id.toDoPhoto_button);
         if (isInvent) photoOfAct_button.setEnabled(false);
         Log.i("INFO", "Photo muts be DISabled");
