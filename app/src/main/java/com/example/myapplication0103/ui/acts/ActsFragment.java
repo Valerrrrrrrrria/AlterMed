@@ -170,7 +170,7 @@ public class ActsFragment extends Fragment {
                 Intent intent = new Intent (getContext(), ActsEditorActivity.class);
                 intent.putExtra("isUpdate", false);
                 intent.putExtra("uniq_id", uniq_id);
-                startActivity(intent);
+                startActivityForResult(intent, 1);
             }
         });
 

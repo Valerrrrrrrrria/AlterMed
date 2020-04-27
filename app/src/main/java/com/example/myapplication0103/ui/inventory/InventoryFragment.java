@@ -77,7 +77,7 @@ public class InventoryFragment extends Fragment {
                 intent.putExtra("actId", position);
                 intent.putExtra("uniq_id", uniq_arrayList.get(position));
                 intent.putExtra("isUpdate", true); // Да, выводить уже имеющийся
-                startActivity(intent);
+                startActivityForResult(intent, 1);
             }
         });
 
@@ -122,7 +122,7 @@ public class InventoryFragment extends Fragment {
                 Intent intent = new Intent (getContext(), InventEditorActivity.class);
                 intent.putExtra("isUpdate", false);
                 intent.putExtra("uniq_id", uniq_id);
-                startActivity(intent);
+                startActivityForResult(intent, 1);
             }
         });
 

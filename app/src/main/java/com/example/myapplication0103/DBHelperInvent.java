@@ -44,7 +44,7 @@ public class DBHelperInvent extends SQLiteOpenHelper {
                 KEY_COMMENT + " text," + KEY_ISSENT + " integer" + ")");
 
         db.execSQL("create table " + TABLE_BARCODES + "(" + KEY_ACTBARID + " integer,"
-                + KEY_BARCODES + " text," + KEY_PHOTO1 + " blob," + KEY_PHOTO2 + " blob" + ")");
+                + KEY_BARCODES + " text," + KEY_PHOTO1 + " text," + KEY_PHOTO2 + " text" + ")");
 
         ContentValues contentValues = new ContentValues();
         contentValues.put(DBHelperInvent.KEY_ACTID, 1);
@@ -134,8 +134,8 @@ public class DBHelperInvent extends SQLiteOpenHelper {
             do {
                 Log.i("LOG TABLE INVENT","ID = " + cursor.getInt(idIndex) +
                         ", Barcode = " + cursor.getString(barcodeIndex) +
-                        ", Photo = " + cursor.getBlob(photoIndex1) +
-                        ", Photo2 = " + cursor.getBlob(photoIndex2));
+                        ", Photo = " + cursor.getString(photoIndex1) +
+                        ", Photo2 = " + cursor.getString(photoIndex2));
 
             } while (cursor.moveToNext());
 

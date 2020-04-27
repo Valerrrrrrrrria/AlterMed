@@ -221,6 +221,10 @@ public class InventEditorActivity extends AppCompatActivity {
                             InventoryFragment.comments_arrayList.get(actId));
                     // ШТРИХКОДЫ МЕНЯТЬ НЕЛЬЗЯ!!!
 
+                    Intent intent = new Intent();
+                    setResult(RESULT_OK, intent);
+                    finish();
+
                 } else {
 
                     InventoryFragment.outputs_arrayList.add(InventoryFragment.dates_arrayList.get(actId) + " " + InventoryFragment.uniq_arrayList.get(actId));
@@ -265,6 +269,10 @@ public class InventEditorActivity extends AppCompatActivity {
                     dualBarcodes_pictures1.clear();
                     dualBarcodes_pictures2.clear();
                     dualBarcodes_picturesHelper.clear();
+
+                    Intent intent = new Intent();
+                    setResult(RESULT_OK, intent);
+                    finish();
 
                 }
             }
