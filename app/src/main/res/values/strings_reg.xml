@@ -1,0 +1,10 @@
+<resources>
+    <string name="app_name">MyApplication0103</string>
+    <string name="title_home">Home</string>
+    <string name="title_dashboard">Dashboard</string>
+    <string name="title_notifications">Notifications</string>
+    <string name="logIn_pref_file">logIn_file</string>
+    <string name="drname_key">drname</string>
+    <string name="organization_key">organization</string>
+    <string name="idOfActUniq_key">idOfActUniq</string>
+</resources>

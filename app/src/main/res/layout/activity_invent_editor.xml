@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".ui.inventory.InventEditorActivity">
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:orientation="vertical"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <EditText
+                android:id="@+id/dateOfInvent_editText"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:ems="10"
+                android:hint="Дата инвентаризации"
+                android:inputType="textPersonName"
+                android:textSize="20sp" />
+
+            <CalendarView
+                android:id="@+id/calendarView2"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+
+            <EditText
+                android:id="@+id/commentOfInvent_editText"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:ems="10"
+                android:hint="Комментарий"
+                android:inputType="textPersonName"
+                android:textSize="20sp" />
+
+            <Button
+                android:id="@+id/beginInvent_button"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Начать инвентаризацию" />
+
+
+            <Button
+                android:id="@+id/dualBarcode_button2"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Двойные коды" />
+
+            <Button
+                android:id="@+id/saveInvent_button"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="10dp"
+                android:text="Сохранить данные" />
+
+            <Button
+                android:id="@+id/showBarcodes_button2"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Показать данные" />
+
+            <ListView
+                android:id="@+id/inventBarcodes_listView"
+                android:layout_width="match_parent"
+                android:layout_height="1000dp">
+
+            </ListView>
+
+
+        </LinearLayout>
+    </ScrollView>
+
+</androidx.constraintlayout.widget.ConstraintLayout>
