@@ -56,7 +56,7 @@ public class DBHelper extends SQLiteOpenHelper {
                 + KEY_COMMENT + " text," + KEY_ACTPHOTO + " text," + KEY_ISSENT + " integer" + ")");
 
         db.execSQL("create table " + TABLE_BARCODESACTS + "(" + KEY_ACTBARID + " integer,"
-                + KEY_BARCODESACTS + " text," + KEY_PHOTO + " blob," + KEY_PHOTO2 + " blob" + ")");
+                + KEY_BARCODESACTS + " text," + KEY_PHOTO + " text," + KEY_PHOTO2 + " text" + ")");
 
         ContentValues contentValues = new ContentValues();
         contentValues.put(DBHelper.KEY_ACTID, 1);
@@ -163,8 +163,8 @@ public class DBHelper extends SQLiteOpenHelper {
             do {
                 Log.i("DATADASE LOG TABLE ACTS","ID = " + cursor.getInt(idIndex) +
                         ", Barcode = " + cursor.getString(barcodeIndex) +
-                        ", Photo = " + cursor.getBlob(photoIndex) +
-                        ", Photo = " + cursor.getBlob(photoIndex2));
+                        ", Photo = " + cursor.getString(photoIndex) +
+                        ", Photo = " + cursor.getString(photoIndex2));
 
             } while (cursor.moveToNext());
 
@@ -196,6 +196,9 @@ public class DBHelper extends SQLiteOpenHelper {
                 ActsFragment.comments_arrayList.add(cursor.getString(idComment));
                 ActsFragment.photoOfAct = cursor.getString(idPhoto);
                 ActsFragment.outputs_arrayList.add(cursor.getString(idDate) + " " + cursor.getInt(idNumb) + " " + cursor.getString(idPatName));
+
+                Log.i("photoOfAct = ", "" + cursor.getString(idPhoto));
+
                 Log.i("IDDDDD ", "" + cursor.getInt(idNumb));
             } while (cursor.moveToNext());
 
@@ -251,8 +254,8 @@ public class DBHelper extends SQLiteOpenHelper {
 
             do {
                 ActsFragment.barcodes_arrayList.add(cursor.getString(barcodeIndex));
-                ActsFragment.photo1_arrayList.add(cursor.getBlob(photoIndex1));
-                ActsFragment.photo2_arrayList.add(cursor.getBlob(photoIndex2));
+                ActsFragment.photo1_arrayList.add(cursor.getString(photoIndex1));
+                ActsFragment.photo2_arrayList.add(cursor.getString(photoIndex2));
 
             } while (cursor.moveToNext());
 
@@ -288,7 +291,7 @@ public class DBHelper extends SQLiteOpenHelper {
         cursor.close();
     }
 
-    public static void addToDBActsBar(SQLiteDatabase db, int actID, String barcode, byte[] photo, byte[] photo2) {
+    public static void addToDBActsBar(SQLiteDatabase db, int actID, String barcode, String photo, String photo2) {
         ContentValues contentValues = new ContentValues();
         int id = ActsFragment.id_arrayList.get(actID);
         contentValues.put(DBHelper.KEY_ACTBARID, id);

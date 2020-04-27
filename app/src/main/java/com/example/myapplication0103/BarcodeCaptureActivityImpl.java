@@ -544,7 +544,7 @@ public final class BarcodeCaptureActivityImpl extends AppCompatActivity implemen
         }
     }
 
-    private void saveBarcode(ArrayList<String> barcodes_array, final ArrayList<byte[]> barcodesPict_array, final Barcode barcode)
+    private void saveBarcode(ArrayList<String> barcodes_array, final ArrayList<String> barcodesPict_array, final Barcode barcode)
     {
         //do something with barcode data returned
         barcode_textView.setText(barcode.displayValue.toString());
@@ -569,9 +569,19 @@ public final class BarcodeCaptureActivityImpl extends AppCompatActivity implemen
 
                 bitmap.compress(Bitmap.CompressFormat.JPEG, 0, bos);
                 // + можно уменьшить размер и сделать изображение чб
+
+
+                // Проверить true или false
+                if (!bitmap.compress(Bitmap.CompressFormat.JPEG, 10, bos))
+                    throw new IllegalArgumentException("Bitmap compress error!!");
+
                 byte[] newImg = bos.toByteArray();
 
-                barcodesPict_array.add(newImg); // !!! Это data jpeg !!!
+                //String newImg1 = newImg.toString();
+                String newImg2 = Base64.encodeToString(newImg, Base64.DEFAULT);
+                Log.i("Photo in String" , "" + newImg2);
+
+                barcodesPict_array.add(newImg2); // !!! Это data jpeg !!!
 
                 //InputStream inputStream2  = new ByteArrayInputStream(newImg);
                 //Bitmap bitmap2  = BitmapFactory.decodeStream(inputStream2);

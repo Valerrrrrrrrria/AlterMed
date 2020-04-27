@@ -211,7 +211,7 @@ public class DBHelperInvent extends SQLiteOpenHelper {
 
 
     // Добавление элементов в базу
-    public static void addToDBBarcodes(SQLiteDatabase db, int actID, String barcode, byte[] photo, byte[] photo2) {
+    public static void addToDBBarcodes(SQLiteDatabase db, int actID, String barcode, String photo, String photo2) {
         ContentValues contentValues = new ContentValues();
         int id = InventoryFragment.id_arrayList.get(actID);
         contentValues.put(DBHelperInvent.KEY_ACTBARID, id);

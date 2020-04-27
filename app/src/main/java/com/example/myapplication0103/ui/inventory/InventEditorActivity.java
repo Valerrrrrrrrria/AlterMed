@@ -38,16 +38,16 @@ public class InventEditorActivity extends AppCompatActivity {
 
     // Списки для одинарных штрихкодов
     public static ArrayList<String> barcodes_array = new ArrayList<String>();
-    public static ArrayList<byte[]> barcodes_pictures = new ArrayList<byte[]>();
+    public static ArrayList<String> barcodes_pictures = new ArrayList<String>();
 
     // списки для двойных штрихкодов
     public static ArrayList<String> dualBarcodes_array = new ArrayList<String>();
     public static ArrayList<String> dualBarcodes_arrayHelper = new ArrayList<String>();
 
     // списки для хранения фото двойных штрихкодов
-    public static ArrayList<byte[]> dualBarcodes_pictures1 = new ArrayList<byte[]>();
-    public static ArrayList<byte[]> dualBarcodes_pictures2 = new ArrayList<byte[]>();
-    public static ArrayList<byte[]> dualBarcodes_picturesHelper = new ArrayList<byte[]>();
+    public static ArrayList<String> dualBarcodes_pictures1 = new ArrayList<String>();
+    public static ArrayList<String> dualBarcodes_pictures2 = new ArrayList<String>();
+    public static ArrayList<String> dualBarcodes_picturesHelper = new ArrayList<String>();
 
     public static ArrayAdapter barcodes_arrayAdapter;
     public static ListView barcodes_listView;

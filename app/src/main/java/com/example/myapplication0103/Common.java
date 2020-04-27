@@ -62,8 +62,8 @@ public class Common {
         return sharedPref.getString("organization", null);
     }
 
-    public static void splitDualArray (ArrayList<String> barcodes_arrayHelper, final ArrayList<byte[]> pictures_arrayHelper,
-                                      ArrayList<String> barcodes_array, final ArrayList<byte[]> pictures_array1, final ArrayList<byte[]> pictures_array2) {
+    public static void splitDualArray (ArrayList<String> barcodes_arrayHelper, final ArrayList<String> pictures_arrayHelper,
+                                      ArrayList<String> barcodes_array, final ArrayList<String> pictures_array1, final ArrayList<String> pictures_array2) {
 
         for (int i = 0; i < barcodes_arrayHelper.size(); i+=2) {
             barcodes_array.add(barcodes_arrayHelper.get(i) + barcodes_arrayHelper.get(i+1));
@@ -90,7 +90,7 @@ public class Common {
 
     public static String createJSONForImpl (String hospitalId, String fio, String cardNum, String date,
                                             String doctor, String comment, String photo, ArrayList<String> barcodesArray,
-                                            ArrayList<byte[]> barcodesPhoto1, ArrayList<byte[]> barcodesPhoto2) {
+                                            ArrayList<String> barcodesPhoto1, ArrayList<String> barcodesPhoto2) {
 
         // поля объекта
         // uuid, код организации, имя пациента, номер истории болезни, Дата операции, ФИО Врача,

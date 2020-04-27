@@ -49,8 +49,8 @@ public class ActsFragment extends Fragment {
     public static ArrayList<String> outputs_arrayList; // Список для вывода в ListView
 
     // Для JSON
-    public static ArrayList<byte[]> photo1_arrayList;
-    public static ArrayList<byte[]> photo2_arrayList;
+    public static ArrayList<String> photo1_arrayList;
+    public static ArrayList<String> photo2_arrayList;
     public static ArrayList<String> barcodes_arrayList;
 
     // Для querry
@@ -119,7 +119,7 @@ public class ActsFragment extends Fragment {
                 intent.putExtra("actId", position);
                 intent.putExtra("uniq_id", uniq_arrayList.get(position));
                 intent.putExtra("isUpdate", true);
-                startActivity(intent);
+                startActivityForResult(intent, 1);
 
             }
         });
@@ -146,6 +146,7 @@ public class ActsFragment extends Fragment {
                                 historyNumb_arrayList.remove(itemToDelete);
                                 uniq_arrayList.remove(itemToDelete);
                                 outputs_arrayList.remove(itemToDelete);
+                                photoOfAct = null;
                                 outputs_arrayAdapter.notifyDataSetChanged();
                             }
                         })
@@ -190,6 +191,7 @@ public class ActsFragment extends Fragment {
                 uniq_arrayList.clear();
                 outputs_arrayList.clear();
                 outputs_arrayAdapter.notifyDataSetChanged();
+                photoOfAct = null;
             }
         });
 

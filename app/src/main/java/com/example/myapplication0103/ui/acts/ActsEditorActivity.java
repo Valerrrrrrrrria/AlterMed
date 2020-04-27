@@ -56,16 +56,16 @@ public class ActsEditorActivity extends AppCompatActivity {
 
     // списки для обычных штрихкодов
     public static ArrayList<String> barcodes_array = new ArrayList<String>();
-    public static ArrayList<byte[]> barcodes_pictures = new ArrayList<byte[]>();
+    public static ArrayList<String> barcodes_pictures = new ArrayList<String>();
 
     // списки для двойных штрихкодов
     public static ArrayList<String> dualBarcodes_array = new ArrayList<String>();
     public static ArrayList<String> dualBarcodes_arrayHelper = new ArrayList<String>();
 
     // списки для хранения фото двойных штрихкодов
-    public static ArrayList<byte[]> dualBarcodes_pictures1 = new ArrayList<byte[]>();
-    public static ArrayList<byte[]> dualBarcodes_pictures2 = new ArrayList<byte[]>();
-    public static ArrayList<byte[]> dualBarcodes_picturesHelper = new ArrayList<byte[]>();
+    public static ArrayList<String> dualBarcodes_pictures1 = new ArrayList<String>();
+    public static ArrayList<String> dualBarcodes_pictures2 = new ArrayList<String>();
+    public static ArrayList<String> dualBarcodes_picturesHelper = new ArrayList<String>();
 
 
     public static ArrayAdapter barcodes_arrayAdapter;
@@ -88,6 +88,7 @@ public class ActsEditorActivity extends AppCompatActivity {
         dualBarcodes_pictures1.clear();
         dualBarcodes_pictures2.clear();
         dualBarcodes_picturesHelper.clear();
+        ActsFragment.photoOfAct = null;
 
 
         // Переменная для query
@@ -321,10 +322,13 @@ public class ActsEditorActivity extends AppCompatActivity {
         showPhoto_button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                ActsFragment.photoOfAct = null;
                 int id = ActsFragment.id_arrayList.get(actId);
 
+                Log.i("ID = ", "" + id);
+
                 String selection1;
-                selection1 = "_actid = " + id;
+                selection1 = "_id = " + id;
                 Cursor c = ActsFragment.database.query(DBHelper.TABLE_ACTS, null, selection1, null, null,
                         null, null);
                 DBHelper.readMyDatabaseActs(c);
@@ -341,7 +345,7 @@ public class ActsEditorActivity extends AppCompatActivity {
             }
         });
 
-        Button saveToActs_button = findViewById(R.id.saveToActs);
+        final Button saveToActs_button = findViewById(R.id.saveToActs);
         saveToActs_button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -356,6 +360,10 @@ public class ActsEditorActivity extends AppCompatActivity {
                                 ActsFragment.dates_arrayList.get(actId), ActsFragment.patName_arrayList.get(actId), ActsFragment.drName_arrayList.get(actId),
                                 ActsFragment.comments_arrayList.get(actId));
                         // ШТРИХКОДЫ МЕНЯТЬ НЕЛЬЗЯ!!!
+                        
+                        Intent intent = new Intent();
+                        setResult(RESULT_OK, intent);
+                        finish();
 
                     } else {
 
@@ -401,6 +409,10 @@ public class ActsEditorActivity extends AppCompatActivity {
                         dualBarcodes_pictures1.clear();
                         dualBarcodes_pictures2.clear();
                         dualBarcodes_picturesHelper.clear();
+
+                        Intent intent = new Intent();
+                        setResult(RESULT_OK, intent);
+                        finish();
 
                     }
             }
