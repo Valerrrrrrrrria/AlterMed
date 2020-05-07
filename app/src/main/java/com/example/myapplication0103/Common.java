@@ -141,6 +141,54 @@ public class Common {
         return message = json.toString(); // Возвращаем нашу JSON строку
     }
 
+    public static String createJSONForInvent (String hospitalId, String date, String comment, ArrayList<String> barcodesArray,
+                                            ArrayList<String> barcodesPhoto1, ArrayList<String> barcodesPhoto2) {
+
+        // поля объекта
+        // uuid, код организации, имя пациента, номер истории болезни, Дата операции, ФИО Врача,
+        // Комментарий, Фото акта + массив штрихкодов и фото: barcode + photo1 + photo2;
+
+        String uniqueID = UUID.randomUUID().toString(); // Создаем уникальный id
+
+        String message;
+        JSONObject json = new JSONObject();
+        try {
+            json.put("name", "Инвентаризация");
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+        JSONArray array = new JSONArray();
+        JSONObject item = new JSONObject();
+
+        JSONArray barcodes = new JSONArray();
+        try {
+            item.put("uniqueId", uniqueID); // уникальный id
+            item.put("hospital", hospitalId); // номер организации
+            item.put("date", date); // дата операции
+            item.put("comment", comment); // комментарий
+
+            //Сделать до количества элементов массива со штрихкодами
+            for (int i = 0; i < barcodesArray.size(); i++) {
+                JSONObject barcodeObject = new JSONObject();
+                barcodeObject.put("barcode", barcodesArray.get(i));
+                barcodeObject.put("photo1", barcodesPhoto1.get(i));
+                barcodeObject.put("photo2", barcodesPhoto2.get(i));
+
+                barcodes.put(barcodeObject);
+            }
+
+            item.put("components", barcodes);
+            array.put(item);
+
+            json.put("Act", array);
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+        return message = json.toString(); // Возвращаем нашу JSON строку
+    }
+
     public static void deleteFromArraysById (int id) {
         ActsFragment.id_arrayList.remove(id);
         ActsFragment.uniq_arrayList.remove(id);

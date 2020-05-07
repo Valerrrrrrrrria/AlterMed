@@ -234,7 +234,7 @@ public class ActsFragment extends Fragment {
                         Log.i("JSON", message);
 
                         // 2. Отправляем JSON объект
-                        SendRequest sendRequest = new SendRequest(i, database);
+                        SendRequest sendRequest = new SendRequest(i, database, true, false);
                         sendRequest.execute("http://test.altermedica.ru", message);
 
                         // 3. Ждем ответа сервера

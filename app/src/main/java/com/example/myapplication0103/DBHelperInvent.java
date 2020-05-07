@@ -186,6 +186,41 @@ public class DBHelperInvent extends SQLiteOpenHelper {
         }
     }
 
+    public static void readDBActsBarForJSON (Cursor cursor) {
+
+        if (cursor.moveToFirst()) {
+            int idIndex = cursor.getColumnIndex(DBHelperInvent.KEY_ACTBARID);
+            int barcodeIndex = cursor.getColumnIndex(DBHelperInvent.KEY_BARCODES);
+            int photoIndex1 = cursor.getColumnIndex(DBHelperInvent.KEY_PHOTO1);
+            int photoIndex2 = cursor.getColumnIndex(DBHelperInvent.KEY_PHOTO2);
+
+            do {
+                InventoryFragment.barcodes_arrayList.add(cursor.getString(barcodeIndex));
+                InventoryFragment.photo1_arrayList.add(cursor.getString(photoIndex1));
+                InventoryFragment.photo2_arrayList.add(cursor.getString(photoIndex2));
+
+            } while (cursor.moveToNext());
+
+        }else {
+            Log.i("mlog","0 rows");
+        }
+    }
+
+    public static void readDBActsForOutputOnly(Cursor cursor) {
+        if (cursor.moveToFirst()) {
+            int idDate = cursor.getColumnIndex(DBHelper.KEY_DATE);
+            int idNumb = cursor.getColumnIndex(DBHelper.KEY_NUMB);
+
+            do {
+                InventoryFragment.outputs_arrayList.add(cursor.getString(idDate) + " " + cursor.getInt(idNumb));
+                Log.i("IDDDDD ", "" + cursor.getInt(idNumb));
+            } while (cursor.moveToNext());
+
+        }else {
+            Log.i("mlog","0 rows");
+        }
+    }
+
     public static void addToDBActs(SQLiteDatabase db, int actID, int uniqId, String date, String comment) {
         ContentValues contentValues = new ContentValues();
         contentValues.put(DBHelperInvent.KEY_ACTID, actID);

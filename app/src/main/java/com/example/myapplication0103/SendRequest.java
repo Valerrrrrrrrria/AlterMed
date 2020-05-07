@@ -9,6 +9,7 @@ import android.util.Log;
 import android.widget.Toast;
 
 import com.example.myapplication0103.ui.acts.ActsFragment;
+import com.example.myapplication0103.ui.inventory.InventoryFragment;
 
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
@@ -23,10 +24,14 @@ public class SendRequest extends AsyncTask<String, Void, String> {
     SQLiteDatabase m_database;
     int responseCode = 0;
     final private int connectionTimeoutMs = 10000;
+    boolean m_isImpl = false;
+    boolean m_isInvent = false;
 
-    public SendRequest (int i, SQLiteDatabase database) {
+    public SendRequest (int i, SQLiteDatabase database, boolean isImpl, boolean isInvent) {
         m_i = i;
         m_database = database;
+        m_isImpl = isImpl;
+        m_isInvent = isInvent;
     }
 
 
@@ -72,37 +77,68 @@ public class SendRequest extends AsyncTask<String, Void, String> {
 
         Log.i("INFO","Мы в onPostExecute");
         Log.i("response = ","" + responseCode);
+if (m_isImpl) {
+    if (responseCode == 200) {
+        // Удалить с базы
+        Log.i("Size", "" + ActsFragment.id_arrayList.size());
+        Log.i("", "" + m_i);
+        Log.i("id_arrayList.get(m_i) =", "" + ActsFragment.id_arrayList.get(m_i));
+        DBHelper.deleteFromDatabase(m_database, DBHelper.TABLE_ACTS, m_i);
+        DBHelper.deleteFromDatabase(m_database, DBHelper.TABLE_BARCODESACTS, m_i);
 
-        if (responseCode == 200) {
-            // Удалисть с базы
-            Log.i("Size", "" + ActsFragment.id_arrayList.size());
-            Log.i("", "" + m_i);
-            Log.i("id_arrayList.get(m_i) =", "" + ActsFragment.id_arrayList.get(m_i));
-            DBHelper.deleteFromDatabase(m_database, DBHelper.TABLE_ACTS, m_i);
-            DBHelper.deleteFromDatabase(m_database, DBHelper.TABLE_BARCODESACTS, m_i);
+        // Удалить с массивов
+        //Common.deleteFromArraysById(0);
 
-            // Удалить с массивов
-            //Common.deleteFromArraysById(0);
+        ActsFragment.info_textView.setText("Данные отправлены");
 
-            ActsFragment.info_textView.setText("Данные отправлены");
+    } else {
+        Log.i("INFO", "Данные не отправлены, попробуйте позднее");
+        ActsFragment.info_textView.setText("Данные не отправлены, попробуйте позднее");
+    }
 
-        } else {
-            Log.i("INFO", "Данные не отправлены, попробуйте позднее");
-            ActsFragment.info_textView.setText("Данные не отправлены, попробуйте позднее");
+
+    ActsFragment.outputs_arrayList.clear();
+
+    // Читаем базу и выводим, если что-то осталось
+    Cursor cursor = m_database.query(DBHelper.TABLE_ACTS, null, null, null, null, null, null); //пока без сортировок и группировок, поэтому null
+    DBHelper.readDBActsForOutputOnly(cursor);
+    cursor.close();
+
+    ActsFragment.outputs_arrayAdapter.notifyDataSetChanged();
+}
+
+
+        if (m_isInvent) {
+
+            if (responseCode == 200) {
+                // Удалить с базы
+                Log.i("Size", "" + InventoryFragment.id_arrayList.size());
+                Log.i("", "" + m_i);
+                Log.i("id_arrayList.get(m_i) =", "" + InventoryFragment.id_arrayList.get(m_i));
+                DBHelperInvent.deleteFromDatabase(m_database, DBHelperInvent.TABLE_ACTS, m_i);
+                DBHelperInvent.deleteFromDatabase(m_database, DBHelperInvent.TABLE_BARCODES, m_i);
+
+                // Удалить с массивов
+                //Common.deleteFromArraysById(0);
+
+                InventoryFragment.info_textView.setText("Данные отправлены");
+
+            } else {
+                Log.i("INFO", "Данные не отправлены, попробуйте позднее");
+                InventoryFragment.info_textView.setText("Данные не отправлены, попробуйте позднее");
+            }
+
+
+            InventoryFragment.outputs_arrayList.clear();
+
+            // Читаем базу и выводим, если что-то осталось
+            Cursor cursor = m_database.query(DBHelperInvent.TABLE_ACTS, null, null, null, null, null, null); //пока без сортировок и группировок, поэтому null
+            DBHelperInvent.readDBActsForOutputOnly(cursor);
+            cursor.close();
+
+            InventoryFragment.outputs_arrayAdapter.notifyDataSetChanged();
+
         }
-
-
-        ActsFragment.outputs_arrayList.clear();
-
-        // Читаем базу и выводим, если что-то осталось
-        Cursor cursor = m_database.query(DBHelper.TABLE_ACTS, null,null,null,null,null,null); //пока без сортировок и группировок, поэтому null
-        DBHelper.readDBActsForOutputOnly(cursor);
-        cursor.close();
-
-        ActsFragment.outputs_arrayAdapter.notifyDataSetChanged();
-
-
-        // Вот сюда.
 
     }
 }

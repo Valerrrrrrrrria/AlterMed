@@ -15,6 +15,7 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ListView;
+import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
@@ -23,6 +24,7 @@ import androidx.fragment.app.Fragment;
 import com.example.myapplication0103.Common;
 import com.example.myapplication0103.DBHelperInvent;
 import com.example.myapplication0103.R;
+import com.example.myapplication0103.SendRequest;
 
 import java.util.ArrayList;
 
@@ -35,15 +37,35 @@ public class InventoryFragment extends Fragment {
 
     public static ArrayList<String> outputs_arrayList; // Список для вывода в ListView
 
-    static ArrayAdapter outputs_arrayAdapter;
+    public static ArrayAdapter outputs_arrayAdapter;
     DBHelperInvent dbHelperInvent;
     static SQLiteDatabase database;
+
+    // Ответ сервера
+    public static int responseCode;
+
+    // Для JSON
+    public static ArrayList<String> photo1_arrayList;
+    public static ArrayList<String> photo2_arrayList;
+    public static ArrayList<String> barcodes_arrayList;
+
+    // Для querry
+    String selection = null;
+
+    public static TextView info_textView;
 
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
 
         View root = inflater.inflate(R.layout.fragment_inventory, container, false);
+
+        // Считываем hospitalID
+        SharedPreferences sharedPref = root.getContext().getSharedPreferences(getString(R.string.logIn_pref_file), Context.MODE_PRIVATE);
+        final String hospitalId = Common.getHospitalId(sharedPref);
+        Log.i("hospitalId ", "" + hospitalId);
+
+        info_textView = (TextView) root.findViewById(R.id.info_textView);
 
         final ListView acts_listView = (ListView) root.findViewById(R.id.acts_listView);
 
@@ -52,6 +74,10 @@ public class InventoryFragment extends Fragment {
         comments_arrayList = new ArrayList<>();
         uniq_arrayList = new ArrayList<>();
         outputs_arrayList = new ArrayList<>();
+
+        photo1_arrayList = new ArrayList<>();
+        photo2_arrayList = new ArrayList<>();
+        barcodes_arrayList = new ArrayList<>();
 
         // --- Работа с базой ---
         dbHelperInvent = new DBHelperInvent(getContext()); //создали экземпляр
@@ -142,20 +168,52 @@ public class InventoryFragment extends Fragment {
             }
         });
 
-        Button send_button = (Button) root.findViewById(R.id.send_button2);
+        final Button send_button = (Button) root.findViewById(R.id.send_button2);
         send_button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                responseCode = 0;
                 if (id_arrayList.size() != 0) {
                     // И тогда что же мы делаем?
                     // 0. блокируем кнопку отправки
+                    send_button.setEnabled(false);
                     // --- И так по кругу
-                    // 1. Создаем JSON объект
-                    // 2. Отправляем JSON объект
-                    // 3. Ждем ответа сервера
-                    // 4. При 200 удаляем с базы и массивов!
-                    // --- Делаем это до тех пор, пока не отправим все
+                    for (int i = 0; i< id_arrayList.size(); i++) {
+                        // Скопировать id_arrayList и отправлять его
+                        barcodes_arrayList.clear();
+                        photo1_arrayList.clear();
+                        photo2_arrayList.clear();
+
+                        // Считываем коды и фото с базы
+                        selection = "_id = " + id_arrayList.get(i);
+                        Cursor c = database.query(DBHelperInvent.TABLE_BARCODES, null, selection, null, null,
+                                null, null);
+                        DBHelperInvent.readDBActsBarForJSON(c);
+                        c.close();
+
+                        Log.i("ID = ", "" + id_arrayList.get(i));
+                        for (int j = 0; j < barcodes_arrayList.size(); j++) {
+                            Log.i("Barcode", barcodes_arrayList.get(j));
+                            Log.i("Photo1", "" + photo1_arrayList.get(j));
+                            Log.i("Photo2", "" + photo2_arrayList.get(j));
+                        }
+
+                        // 1. Создаем JSON объект
+                        String message = null;
+                        message = Common.createJSONForInvent(hospitalId, dates_arrayList.get(i), comments_arrayList.get(i), barcodes_arrayList, photo1_arrayList, photo2_arrayList);
+                        Log.i("JSON", message);
+
+                        // 2. Отправляем JSON объект
+                        SendRequest sendRequest = new SendRequest(i, database, false, true);
+                        sendRequest.execute("http://test.altermedica.ru", message);
+
+                        // 3. Ждем ответа сервера
+                        // 4. При 200 удаляем с базы!
+                        // --- Делаем это до тех пор, пока не отправим все
+                    }
+
                     // 5. Разблокируем кнопку
+                    send_button.setEnabled(true);
                 } else Log.i("INFO", "Нечего отправлять");
             }
         });
