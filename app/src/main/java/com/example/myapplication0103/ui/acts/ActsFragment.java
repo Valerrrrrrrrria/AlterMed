@@ -234,8 +234,8 @@ public class ActsFragment extends Fragment {
                         Log.i("JSON", message);
 
                         // 2. Отправляем JSON объект
-                        SendRequest sendRequest = new SendRequest(i, database, true, false);
-                        sendRequest.execute("http://test.altermedica.ru", message);
+                        SendRequest sendRequest = new SendRequest(i, database, true, false, "valeria", "AZdWD89Ej6HNCUmV");
+                        sendRequest.execute("https://test.4lpu.ru/upload_lua/", message);
 
                         // 3. Ждем ответа сервера
                         // 4. При 200 удаляем с базы!

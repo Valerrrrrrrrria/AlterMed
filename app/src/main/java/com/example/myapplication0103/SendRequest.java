@@ -5,6 +5,7 @@ import android.app.Application;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.AsyncTask;
+import android.util.Base64;
 import android.util.Log;
 import android.widget.Toast;
 
@@ -26,12 +27,16 @@ public class SendRequest extends AsyncTask<String, Void, String> {
     final private int connectionTimeoutMs = 10000;
     boolean m_isImpl = false;
     boolean m_isInvent = false;
+    String m_user;
+    String m_pass;
 
-    public SendRequest (int i, SQLiteDatabase database, boolean isImpl, boolean isInvent) {
+    public SendRequest (int i, SQLiteDatabase database, boolean isImpl, boolean isInvent, String user, String pass) {
         m_i = i;
         m_database = database;
         m_isImpl = isImpl;
         m_isInvent = isInvent;
+        m_pass = pass;
+        m_user = user;
     }
 
 
@@ -39,15 +44,19 @@ public class SendRequest extends AsyncTask<String, Void, String> {
     protected String doInBackground(String... params) {
 
         try {
-            String url = params[0];
+            String url = params[0] + "appTest4.json";
 
             URL obj = new URL(url);
+            String authStr = m_user + ":" + m_pass;
+
             HttpURLConnection urlConnection = (HttpURLConnection) obj.openConnection();
             urlConnection.setRequestMethod("POST");
-            // FIXME где разрывать connection?
-
-            urlConnection.setRequestProperty("Accept-Language", "en-US,en,ru,q=0.5"); // Добавила русский
+            urlConnection.setDoInput(true);
+            urlConnection.setDoOutput(true);
+            //urlConnection.setRequestProperty("Accept-Language", "en-US,en,ru,q=0.5");
             urlConnection.setRequestProperty("Content-Type", "application/json");
+            //urlConnection.setRequestProperty("Content-Type", "text/plain; charset=utf-8");
+            urlConnection.setRequestProperty("Authorization", "Basic " + Base64.encodeToString(authStr.getBytes(), Base64.NO_WRAP));
             urlConnection.setConnectTimeout(connectionTimeoutMs);
 
             String urlParameters = params[1]; // 0 - url, 1 - имя, 3 - то, что передаем
