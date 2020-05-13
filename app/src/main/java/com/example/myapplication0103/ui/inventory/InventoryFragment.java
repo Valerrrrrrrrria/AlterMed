@@ -200,12 +200,12 @@ public class InventoryFragment extends Fragment {
 
                         // 1. Создаем JSON объект
                         String message = null;
-                        message = Common.createJSONForInvent(hospitalId, dates_arrayList.get(i), comments_arrayList.get(i), barcodes_arrayList, photo1_arrayList, photo2_arrayList);
-                        Log.i("JSON", message);
+                        message = Common.createXMLForInvent(uniq_arrayList.get(i), hospitalId, dates_arrayList.get(i), comments_arrayList.get(i), barcodes_arrayList, photo1_arrayList, photo2_arrayList);
+                        Log.i("XML", message);
 
-                        // 2. Отправляем JSON объект
+                        // 2. Отправляем XML объект
                         SendRequest sendRequest = new SendRequest(i, database, false, true, "valeria", "AZdWD89Ej6HNCUmV");
-                        sendRequest.execute("https://test.4lpu.ru/upload_lua/", message);
+                        sendRequest.execute("https://test.4lpu.ru/upload_lua/invent" + outputs_arrayList.get(i) + ".xml", message);
 
                         // 3. Ждем ответа сервера
                         // 4. При 200 удаляем с базы!

@@ -44,7 +44,7 @@ public class SendRequest extends AsyncTask<String, Void, String> {
     protected String doInBackground(String... params) {
 
         try {
-            String url = params[0] + "appTest4.json";
+            String url = params[0] + "appTest5.xml";
 
             URL obj = new URL(url);
             String authStr = m_user + ":" + m_pass;
@@ -54,7 +54,7 @@ public class SendRequest extends AsyncTask<String, Void, String> {
             urlConnection.setDoInput(true);
             urlConnection.setDoOutput(true);
             //urlConnection.setRequestProperty("Accept-Language", "en-US,en,ru,q=0.5");
-            urlConnection.setRequestProperty("Content-Type", "application/json");
+            urlConnection.setRequestProperty("Content-Type", "application/xml");
             //urlConnection.setRequestProperty("Content-Type", "text/plain; charset=utf-8");
             urlConnection.setRequestProperty("Authorization", "Basic " + Base64.encodeToString(authStr.getBytes(), Base64.NO_WRAP));
             urlConnection.setConnectTimeout(connectionTimeoutMs);

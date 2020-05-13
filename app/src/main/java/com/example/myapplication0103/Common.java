@@ -3,13 +3,16 @@ package com.example.myapplication0103;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.util.Log;
+import android.util.Xml;
 
 import com.example.myapplication0103.ui.acts.ActsFragment;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
+import org.xmlpull.v1.XmlSerializer;
 
+import java.io.StringWriter;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.UUID;
@@ -88,7 +91,7 @@ public class Common {
         } else Log.i("DUAL ", "is empty");
     }
 
-    public static String createJSONForImpl (String hospitalId, String fio, String cardNum, String date,
+    public static String createXMLForImpl (Integer actId, String hospitalId, String fio, String cardNum, String date,
                                             String doctor, String comment, String photo, ArrayList<String> barcodesArray,
                                             ArrayList<String> barcodesPhoto1, ArrayList<String> barcodesPhoto2) {
 
@@ -97,51 +100,96 @@ public class Common {
         // Комментарий, Фото акта + массив штрихкодов и фото: barcode + photo1 + photo2;
 
         String uniqueID = UUID.randomUUID().toString(); // Создаем уникальный id
+        String message; // ответ
 
-        String message;
-        JSONObject json = new JSONObject();
+        XmlSerializer serializer = Xml.newSerializer();
+        StringWriter writer = new StringWriter();
+
         try {
-            json.put("name", "Акт имплантации");
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
+            serializer.setOutput(writer);
+            serializer.startDocument("UTF-8", true);
+            serializer.startTag("", "implantationAct");
 
-        JSONArray array = new JSONArray();
-        JSONObject item = new JSONObject();
+            serializer.startTag("", "id");
+            serializer.text(uniqueID);
+            serializer.endTag("", "id");
 
-        JSONArray barcodes = new JSONArray();
-        try {
-            item.put("uniqueId", uniqueID); // уникальный id
-            item.put("hospital", hospitalId); // номер организации
-            item.put("fio", fio); // имя пациента
-            item.put("cardNum", cardNum); // номер истории болезни
-            item.put("date", date); // дата операции
-            item.put("doctor", doctor); // док ФИО
-            item.put("comment", comment); // комментарий
-            item.put("photo", photo); // фото акта
+            serializer.startTag("", "act_num"); // Вот сюда передать номер
+            serializer.text(Integer.toString(actId));
+            serializer.endTag("", "act_num");
 
-            //Сделать до количества элементов массива со штрихкодами
+            serializer.startTag("", "card_num");
+            serializer.text(cardNum);
+            serializer.endTag("", "card_num");
+
+            serializer.startTag("", "date");
+            serializer.text(date);
+            serializer.endTag("", "date");
+
+            serializer.startTag("", "fio");
+            serializer.text(fio);
+            serializer.endTag("", "fio");
+
+            serializer.startTag("", "doctor");
+            serializer.text(doctor);
+            serializer.endTag("", "doctor");
+
+            serializer.startTag("", "hospital");
+            serializer.text(hospitalId);
+            serializer.endTag("", "hospital");
+
+            serializer.startTag("", "comment");
+            serializer.text(comment);
+            serializer.endTag("", "comment");
+
+            serializer.startTag("", "photo");
+            if (photo != null) serializer.text(photo);
+            else serializer.text("");
+            serializer.endTag("", "photo");
+
+
+
+            serializer.startTag("", "components");
+
             for (int i = 0; i < barcodesArray.size(); i++) {
-                JSONObject barcodeObject = new JSONObject();
-                barcodeObject.put("barcode", barcodesArray.get(i));
-                barcodeObject.put("photo1", barcodesPhoto1.get(i));
-                barcodeObject.put("photo2", barcodesPhoto2.get(i));
 
-                barcodes.put(barcodeObject);
+                serializer.startTag("", "component");
+
+                serializer.startTag("", "code");
+                serializer.text(barcodesArray.get(i));
+                serializer.endTag("", "code");
+
+                serializer.startTag("", "photo1");
+                if (barcodesPhoto1.get(i) != null) serializer.text(barcodesPhoto1.get(i));
+                else serializer.text("");
+                serializer.endTag("", "photo1");
+
+                serializer.startTag("", "photo2");
+                if (barcodesPhoto2.get(i) != null) serializer.text(barcodesPhoto2.get(i));
+                else serializer.text("");
+                serializer.endTag("", "photo2");
+
+                serializer.endTag("", "component");
+
             }
 
-            item.put("components", barcodes);
-            array.put(item);
 
-            json.put("Act", array);
-        } catch (JSONException e) {
+            serializer.endTag("", "components");
+
+
+            serializer.endTag("", "implantationAct");
+            serializer.endDocument();
+
+            return writer.toString();
+
+        } catch (Exception e) {
             e.printStackTrace();
+            return "Ошибочка вышла";
         }
 
-        return message = json.toString(); // Возвращаем нашу JSON строку
     }
 
-    public static String createJSONForInvent (String hospitalId, String date, String comment, ArrayList<String> barcodesArray,
+    public static String createXMLForInvent (Integer actId, String hospitalId, String date, String comment, ArrayList<String> barcodesArray,
                                             ArrayList<String> barcodesPhoto1, ArrayList<String> barcodesPhoto2) {
 
         // поля объекта
@@ -149,44 +197,75 @@ public class Common {
         // Комментарий, Фото акта + массив штрихкодов и фото: barcode + photo1 + photo2;
 
         String uniqueID = UUID.randomUUID().toString(); // Создаем уникальный id
+        String message; // ответ
 
-        String message;
-        JSONObject json = new JSONObject();
+        XmlSerializer serializer = Xml.newSerializer();
+        StringWriter writer = new StringWriter();
+
         try {
-            json.put("name", "Инвентаризация");
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
+            serializer.setOutput(writer);
+            serializer.startDocument("UTF-8", true);
+            serializer.startTag("", "implantationAct");
 
-        JSONArray array = new JSONArray();
-        JSONObject item = new JSONObject();
+            serializer.startTag("", "id");
+            serializer.text(uniqueID);
+            serializer.endTag("", "id");
 
-        JSONArray barcodes = new JSONArray();
-        try {
-            item.put("uniqueId", uniqueID); // уникальный id
-            item.put("hospital", hospitalId); // номер организации
-            item.put("date", date); // дата операции
-            item.put("comment", comment); // комментарий
+            serializer.startTag("", "act_num"); // Вот сюда передать номер
+            serializer.text(Integer.toString(actId));
+            serializer.endTag("", "act_num");
 
-            //Сделать до количества элементов массива со штрихкодами
+
+            serializer.startTag("", "date");
+            serializer.text(date);
+            serializer.endTag("", "date");
+
+
+            serializer.startTag("", "hospital");
+            serializer.text(hospitalId);
+            serializer.endTag("", "hospital");
+
+            serializer.startTag("", "comment");
+            serializer.text(comment);
+            serializer.endTag("", "comment");
+
+            serializer.startTag("", "components");
+
             for (int i = 0; i < barcodesArray.size(); i++) {
-                JSONObject barcodeObject = new JSONObject();
-                barcodeObject.put("barcode", barcodesArray.get(i));
-                barcodeObject.put("photo1", barcodesPhoto1.get(i));
-                barcodeObject.put("photo2", barcodesPhoto2.get(i));
 
-                barcodes.put(barcodeObject);
+                serializer.startTag("", "component");
+
+                serializer.startTag("", "code");
+                serializer.text(barcodesArray.get(i));
+                serializer.endTag("", "code");
+
+                serializer.startTag("", "photo1");
+                if (barcodesPhoto1.get(i) != null) serializer.text(barcodesPhoto1.get(i));
+                else serializer.text("");
+                serializer.endTag("", "photo1");
+
+                serializer.startTag("", "photo2");
+                if (barcodesPhoto2.get(i) != null) serializer.text(barcodesPhoto2.get(i));
+                else serializer.text("");
+                serializer.endTag("", "photo2");
+
+                serializer.endTag("", "component");
+
             }
 
-            item.put("components", barcodes);
-            array.put(item);
 
-            json.put("Act", array);
-        } catch (JSONException e) {
+            serializer.endTag("", "components");
+
+
+            serializer.endTag("", "implantationAct");
+            serializer.endDocument();
+
+            return writer.toString();
+
+        } catch (Exception e) {
             e.printStackTrace();
+            return "Ошибочка вышла";
         }
-
-        return message = json.toString(); // Возвращаем нашу JSON строку
     }
 
     public static void deleteFromArraysById (int id) {
