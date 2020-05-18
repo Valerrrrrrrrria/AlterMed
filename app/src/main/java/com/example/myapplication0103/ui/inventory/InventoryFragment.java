@@ -205,7 +205,7 @@ public class InventoryFragment extends Fragment {
 
                         // 2. Отправляем XML объект
                         SendRequest sendRequest = new SendRequest(i, database, false, true, "valeria", "AZdWD89Ej6HNCUmV");
-                        sendRequest.execute("https://test.4lpu.ru/upload_lua/invent" + outputs_arrayList.get(i) + ".xml", message);
+                        sendRequest.execute("https://test.4lpu.ru/upl-inv/" + outputs_arrayList.get(i) + ".xml", message);
 
                         // 3. Ждем ответа сервера
                         // 4. При 200 удаляем с базы!

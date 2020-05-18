@@ -91,7 +91,7 @@ public class Common {
         } else Log.i("DUAL ", "is empty");
     }
 
-    public static String createXMLForImpl (Integer actId, String hospitalId, String fio, String cardNum, String date,
+    public static String createXMLForImplWithPhoto (Integer actId, String hospitalId, String fio, String cardNum, String date,
                                             String doctor, String comment, String photo, ArrayList<String> barcodesArray,
                                             ArrayList<String> barcodesPhoto1, ArrayList<String> barcodesPhoto2) {
 
@@ -142,8 +142,14 @@ public class Common {
             serializer.text(comment);
             serializer.endTag("", "comment");
 
+            // Если фото не нулевое, то мы будем отправлять запрос на сервер и получать обратно URL
+            // То есть тут будет SendReguest на сервер, POST c ожиданиеам ответа от сервера
+
+            // Вот тут вызвать
+            String newUrl = sendPhoto(photo);
+
             serializer.startTag("", "photo");
-            if (photo != null) serializer.text(photo);
+            if (photo != null) serializer.text(newUrl); // сюда мы вставляем url
             else serializer.text("");
             serializer.endTag("", "photo");
 
@@ -159,13 +165,19 @@ public class Common {
                 serializer.text(barcodesArray.get(i));
                 serializer.endTag("", "code");
 
+                newUrl = sendPhoto(barcodesPhoto1.get(i));
                 serializer.startTag("", "photo1");
-                if (barcodesPhoto1.get(i) != null) serializer.text(barcodesPhoto1.get(i));
+                // Если фото не нулевое, то мы будем отправлять запрос на сервер и получать обратно URL
+                // То есть тут будет SendReguest на сервер, POST c ожиданиеам ответа от сервера
+                if (barcodesPhoto1.get(i) != null) serializer.text(newUrl);
                 else serializer.text("");
                 serializer.endTag("", "photo1");
 
+                newUrl = sendPhoto(barcodesPhoto2.get(i));
                 serializer.startTag("", "photo2");
-                if (barcodesPhoto2.get(i) != null) serializer.text(barcodesPhoto2.get(i));
+                // Если фото не нулевое, то мы будем отправлять запрос на сервер и получать обратно URL
+                // То есть тут будет SendReguest на сервер, POST c ожиданиеам ответа от сервера
+                if (barcodesPhoto2.get(i) != null) serializer.text(newUrl);
                 else serializer.text("");
                 serializer.endTag("", "photo2");
 
@@ -179,7 +191,6 @@ public class Common {
 
             serializer.endTag("", "implantationAct");
             serializer.endDocument();
-
             return writer.toString();
 
         } catch (Exception e) {
@@ -188,6 +199,7 @@ public class Common {
         }
 
     }
+
 
     public static String createXMLForInvent (Integer actId, String hospitalId, String date, String comment, ArrayList<String> barcodesArray,
                                             ArrayList<String> barcodesPhoto1, ArrayList<String> barcodesPhoto2) {
@@ -198,6 +210,7 @@ public class Common {
 
         String uniqueID = UUID.randomUUID().toString(); // Создаем уникальный id
         String message; // ответ
+        String newUrl = null;
 
         XmlSerializer serializer = Xml.newSerializer();
         StringWriter writer = new StringWriter();
@@ -205,7 +218,7 @@ public class Common {
         try {
             serializer.setOutput(writer);
             serializer.startDocument("UTF-8", true);
-            serializer.startTag("", "implantationAct");
+            serializer.startTag("", "invent");
 
             serializer.startTag("", "id");
             serializer.text(uniqueID);
@@ -239,13 +252,15 @@ public class Common {
                 serializer.text(barcodesArray.get(i));
                 serializer.endTag("", "code");
 
+                newUrl = sendPhoto(barcodesPhoto1.get(i));
                 serializer.startTag("", "photo1");
-                if (barcodesPhoto1.get(i) != null) serializer.text(barcodesPhoto1.get(i));
+                if (barcodesPhoto1.get(i) != null) serializer.text(newUrl);
                 else serializer.text("");
                 serializer.endTag("", "photo1");
 
+                newUrl = sendPhoto(barcodesPhoto2.get(i));
                 serializer.startTag("", "photo2");
-                if (barcodesPhoto2.get(i) != null) serializer.text(barcodesPhoto2.get(i));
+                if (barcodesPhoto2.get(i) != null) serializer.text(newUrl);
                 else serializer.text("");
                 serializer.endTag("", "photo2");
 
@@ -257,7 +272,7 @@ public class Common {
             serializer.endTag("", "components");
 
 
-            serializer.endTag("", "implantationAct");
+            serializer.endTag("", "invent");
             serializer.endDocument();
 
             return writer.toString();
@@ -266,6 +281,14 @@ public class Common {
             e.printStackTrace();
             return "Ошибочка вышла";
         }
+    }
+
+    public static String sendPhoto(String photo) {
+        SendRequestPhoto sendRequestPhoto = new SendRequestPhoto("valeria", "AZdWD89Ej6HNCUmV");
+        String photoName = UUID.randomUUID().toString();
+        String url = "https://test.4lpu.ru/upl-img/" + photoName;
+        sendRequestPhoto.execute(url, photo);
+        return "https://test.4lpu.ru/data/img/" + photoName;
     }
 
     public static void deleteFromArraysById (int id) {

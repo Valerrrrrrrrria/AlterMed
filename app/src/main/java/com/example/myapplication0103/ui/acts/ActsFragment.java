@@ -228,14 +228,18 @@ public class ActsFragment extends Fragment {
 
                         // 1. Создаем JSON объект
                         String message = null;
-                        message = Common.createXMLForImpl(uniq_arrayList.get(i),hospitalId, patName_arrayList.get(i), historyNumb_arrayList.get(i),
+                        message = Common.createXMLForImplWithPhoto(uniq_arrayList.get(i),hospitalId, patName_arrayList.get(i), historyNumb_arrayList.get(i),
                                 dates_arrayList.get(i), drName_arrayList.get(i), comments_arrayList.get(i),
                                 photoOfAct, barcodes_arrayList, photo1_arrayList, photo2_arrayList);
+                        //message = Common.createXMLForImplWithout()uniq_arrayList.get(i),hospitalId, patName_arrayList.get(i), historyNumb_arrayList.get(i),
+
                         Log.i("XML", message);
 
                         // 2. Отправляем JSON объект
                         SendRequest sendRequest = new SendRequest(i, database, true, false, "valeria", "AZdWD89Ej6HNCUmV");
-                        sendRequest.execute("https://test.4lpu.ru/upload_lua/impl" + outputs_arrayList.get(i) + ".xml", message);
+                        //sendRequest.execute("https://test.4lpu.ru/upload_lua/impl" + outputs_arrayList.get(i) + ".xml", message);
+                        sendRequest.execute("https://test.4lpu.ru/upl-imp/" + outputs_arrayList.get(i) + ".xml", message);
+
 
                         // 3. Ждем ответа сервера
                         // 4. При 200 удаляем с базы!
