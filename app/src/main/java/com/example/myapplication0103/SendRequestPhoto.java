@@ -68,7 +68,7 @@ public class SendRequestPhoto extends AsyncTask<String, Void, String> {
 
             // Получение информации из потока ответа
             responseCode = urlConnection.getResponseCode(); // код ответа сервера
-            Log.i("ResponseCode", "" + responseCode);
+            Log.i("PHOTOResponseCode", "" + responseCode);
 
 
         } catch (Exception e) {
@@ -81,8 +81,8 @@ public class SendRequestPhoto extends AsyncTask<String, Void, String> {
     @Override
     protected void onPostExecute(String message) {
 
-        Log.i("INFO","Мы в onPostExecute");
-        Log.i("response = ","" + responseCode);
+        //Log.i("INFO","Мы в onPostExecute");
+        //Log.i("response = ","" + responseCode);
             if (responseCode == 200) {
                 Log.i("INFO", "Изображение отправлено");
 

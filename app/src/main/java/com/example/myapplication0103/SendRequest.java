@@ -71,7 +71,7 @@ public class SendRequest extends AsyncTask<String, Void, String> {
 
             // Получение информации из потока ответа
             responseCode = urlConnection.getResponseCode(); // код ответа сервера
-            Log.i("ResponseCode", "" + responseCode);
+            Log.i("DOCResponseCode", "" + responseCode);
 
 
         } catch (Exception e) {
@@ -84,14 +84,14 @@ public class SendRequest extends AsyncTask<String, Void, String> {
     @Override
     protected void onPostExecute(String message) {
 
-        Log.i("INFO","Мы в onPostExecute");
-        Log.i("response = ","" + responseCode);
+        Log.i("INFO","Документ отправлен");
+        //Log.i("response = ","" + responseCode);
 if (m_isImpl) {
     if (responseCode == 200) {
         // Удалить с базы
         Log.i("Size", "" + ActsFragment.id_arrayList.size());
         Log.i("", "" + m_i);
-        Log.i("id_arrayList.get(m_i) =", "" + ActsFragment.id_arrayList.get(m_i));
+//        Log.i("id_arrayList.get(m_i) =", "" + ActsFragment.id_arrayList.get(m_i));
         DBHelper.deleteFromDatabase(m_database, DBHelper.TABLE_ACTS, m_i);
         DBHelper.deleteFromDatabase(m_database, DBHelper.TABLE_BARCODESACTS, m_i);
 

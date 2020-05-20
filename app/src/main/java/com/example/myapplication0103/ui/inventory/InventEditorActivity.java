@@ -198,6 +198,7 @@ public class InventEditorActivity extends AppCompatActivity {
         showBarcodes_button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                dualBarcodes_array.clear();
                 Common.splitDualArray(dualBarcodes_arrayHelper, dualBarcodes_picturesHelper, dualBarcodes_array, dualBarcodes_pictures1, dualBarcodes_pictures2);
 
                 if (barcodes_array.size()!=0 | dualBarcodes_array.size()!=0) Common.updateListViewArray(barcodes_array, dualBarcodes_array, barcodes_listViewArray);

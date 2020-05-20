@@ -15,7 +15,7 @@ import com.example.myapplication0103.ui.acts.ActsFragment;
 public class DBHelper extends SQLiteOpenHelper {
 
     public static final int DATABASE_VERSION = 1;
-    public static final String DATABASE_NAME = "altermedicaDB2003(7)"; // Имя БД
+    public static final String DATABASE_NAME = "altermedicaDB2003(8)"; // Имя БД
     public static final String TABLE_ACTS = "acts"; // Для заголовков столбцов таблицы АКТЫ ИМПЛАНТАЦИИ
     public static final String TABLE_BARCODESACTS = "barcodesacts"; // Для заголовков столбцов таблицы ШТРИХКОДЫ В АКТАХ ИМПЛАНТАЦИИ
 

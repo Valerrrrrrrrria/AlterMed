@@ -199,6 +199,23 @@ public class ActsFragment extends Fragment {
         send_button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                // чистим все массивы
+//                patName_arrayList.clear();
+//                dates_arrayList.clear();
+//                comments_arrayList.clear();
+//                id_arrayList.clear();
+//                drName_arrayList.clear();
+//                historyNumb_arrayList.clear();
+//                uniq_arrayList.clear();
+//                outputs_arrayList.clear();
+//                photoOfAct = null;
+                Common.clearArrays();
+
+                // читаем всю базу
+                Cursor cursor = database.query(DBHelper.TABLE_ACTS, null,null,null,null,null,null); //пока без сортировок и группировок, поэтому null
+                DBHelper.readMyDatabaseActs(cursor);
+                cursor.close();
+
 
                 responseCode = 0;
                 if (id_arrayList.size() != 0) {
@@ -206,14 +223,22 @@ public class ActsFragment extends Fragment {
                     // 0. блокируем кнопку отправки
                     send_button.setEnabled(false);
                     // --- И так по кругу
-                    for (int i = 0; i< id_arrayList.size(); i++) {
+
+                    //int id_i = id_arrayList.size();
+                    int i = id_arrayList.size() - 1;
+
+                    //for (int i = 0; i < id_i; i++) {
+                    do {
                         // Скопировать id_arrayList и отправлять его
                         barcodes_arrayList.clear();
                         photo1_arrayList.clear();
                         photo2_arrayList.clear();
 
+
+
                         // Считываем коды и фото с базы
                         selection = "_id = " + id_arrayList.get(i);
+
                         Cursor c = database.query(DBHelper.TABLE_BARCODESACTS, null, selection, null, null,
                                 null, null);
                         DBHelper.readDBActsBarForJSON(c);
@@ -235,24 +260,38 @@ public class ActsFragment extends Fragment {
 
                         Log.i("XML", message);
 
+                        Log.i("INDEX", "" + i);
+                        Log.i("OUTPUTS", "" + outputs_arrayList.size());
+                        //Log.i("OUTPUTS", "" + outputs_arrayList.get(i));
+
+                        Log.i("ID_ARRAYLIST", "" + id_arrayList);
+                        Log.i("ID_ARRAYLIST", "" + patName_arrayList);
+                        Log.i("ID_ARRAYLIST", "" + comments_arrayList);
+                        Log.i("ID_ARRAYLIST", "" + drName_arrayList);
+                        Log.i("ID_ARRAYLIST", "" + historyNumb_arrayList);
+                        Log.i("ID_ARRAYLIST", "" + uniq_arrayList);
+                        Log.i("OUT_ARRAYLIST", "" + outputs_arrayList);
+
+
                         // 2. Отправляем JSON объект
                         SendRequest sendRequest = new SendRequest(i, database, true, false, "valeria", "AZdWD89Ej6HNCUmV");
                         //sendRequest.execute("https://test.4lpu.ru/upload_lua/impl" + outputs_arrayList.get(i) + ".xml", message);
                         sendRequest.execute("https://test.4lpu.ru/upl-imp/" + outputs_arrayList.get(i) + ".xml", message);
 
+                        i--;
+
 
                         // 3. Ждем ответа сервера
                         // 4. При 200 удаляем с базы!
                         // --- Делаем это до тех пор, пока не отправим все
-                    }
+                    } while (i >= 0);
 
                     // 5. Разблокируем кнопку
                     send_button.setEnabled(true);
                 } else Log.i("INFO", "Нечего отправлять");
+
             }
         });
-
-
         //dbHelper.close();
         return root;
     }

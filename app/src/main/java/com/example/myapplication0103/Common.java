@@ -6,6 +6,7 @@ import android.util.Log;
 import android.util.Xml;
 
 import com.example.myapplication0103.ui.acts.ActsFragment;
+import com.example.myapplication0103.ui.inventory.InventoryFragment;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -286,9 +287,9 @@ public class Common {
     public static String sendPhoto(String photo) {
         SendRequestPhoto sendRequestPhoto = new SendRequestPhoto("valeria", "AZdWD89Ej6HNCUmV");
         String photoName = UUID.randomUUID().toString();
-        String url = "https://test.4lpu.ru/upl-img/" + photoName;
+        String url = "https://test.4lpu.ru/upl-img/" + photoName + ".b64";
         sendRequestPhoto.execute(url, photo);
-        return "https://test.4lpu.ru/data/img/" + photoName;
+        return "https://test.4lpu.ru/data/img/" + photoName + ".b64";
     }
 
     public static void deleteFromArraysById (int id) {
@@ -302,5 +303,24 @@ public class Common {
         ActsFragment.historyNumb_arrayList.remove(id);
 
         ActsFragment.outputs_arrayAdapter.notifyDataSetChanged();
+    }
+
+    public static void clearArrays() {
+        ActsFragment.patName_arrayList.clear();
+        ActsFragment.dates_arrayList.clear();
+        ActsFragment.comments_arrayList.clear();
+        ActsFragment.id_arrayList.clear();
+        ActsFragment.drName_arrayList.clear();
+        ActsFragment.historyNumb_arrayList.clear();
+        ActsFragment.uniq_arrayList.clear();
+        ActsFragment.outputs_arrayList.clear();
+    }
+
+    public static void clearArraysInvent() {
+        InventoryFragment.dates_arrayList.clear();
+        InventoryFragment.comments_arrayList.clear();
+        InventoryFragment.id_arrayList.clear();
+        InventoryFragment.uniq_arrayList.clear();
+        InventoryFragment.outputs_arrayList.clear();
     }
 }

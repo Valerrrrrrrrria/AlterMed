@@ -173,12 +173,23 @@ public class InventoryFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 responseCode = 0;
+
+                Common.clearArraysInvent();
+
+                Cursor cursor = database.query(DBHelperInvent.TABLE_ACTS, null,null,null,null,null,null); //пока без сортировок и группировок, поэтому null
+                DBHelperInvent.readDBActs(cursor);
+                cursor.close();
+
                 if (id_arrayList.size() != 0) {
                     // И тогда что же мы делаем?
                     // 0. блокируем кнопку отправки
                     send_button.setEnabled(false);
                     // --- И так по кругу
-                    for (int i = 0; i< id_arrayList.size(); i++) {
+                    int i = id_arrayList.size() - 1;
+                    Log.i("ID_ARRAY.SIZE", "" + i);
+
+                    //for (int i = 0; i < id_i; i++) {
+                    do {
                         // Скопировать id_arrayList и отправлять его
                         barcodes_arrayList.clear();
                         photo1_arrayList.clear();
@@ -210,7 +221,8 @@ public class InventoryFragment extends Fragment {
                         // 3. Ждем ответа сервера
                         // 4. При 200 удаляем с базы!
                         // --- Делаем это до тех пор, пока не отправим все
-                    }
+                        i--;
+                    } while (i >= 0);
 
                     // 5. Разблокируем кнопку
                     send_button.setEnabled(true);

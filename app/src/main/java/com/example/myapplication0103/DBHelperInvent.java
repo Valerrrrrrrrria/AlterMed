@@ -15,7 +15,7 @@ import com.example.myapplication0103.ui.inventory.InventoryFragment;
 public class DBHelperInvent extends SQLiteOpenHelper {
 
     public static final int DATABASE_VERSION = 1;
-    public static final String DATABASE_NAME = "altermedicaDBInvent(3)"; // Имя БД
+    public static final String DATABASE_NAME = "altermedicaDBInvent(8)"; // Имя БД
     public static final String TABLE_ACTS = "acts"; // Для заголовков столбцов таблицы АКТЫ ИНВЕНТАРИЗАЦИИ
     public static final String TABLE_BARCODES = "invent"; // Для заголовков столбцов таблицы АКТЫ ИНВЕНТАРИЗАЦИИ
 
