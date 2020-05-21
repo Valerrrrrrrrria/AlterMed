@@ -1,21 +1,155 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
-    <TextView
-        android:id="@+id/text_help"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="8dp"
-        android:textAlignment="center"
-        android:textSize="20sp"
-        app:layout_constraintBottom_toBottomOf="parent"
+
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:layout_marginStart="10dp"
+        android:layout_marginEnd="10dp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginTop="10dp"
+        android:orientation="vertical"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-</androidx.constraintlayout.widget.ConstraintLayout>
+        app:layout_constraintTop_toTopOf="parent">
+
+        <TextView
+            android:id="@+id/textView2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Руководство по использованию приложения."
+            android:textSize="20sp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/textView3"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:text="Начало работы."
+            android:textSize="20sp"
+            android:textStyle="bold" />
+
+
+        <TextView
+            android:id="@+id/textView11"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Перед началом работы необходимо зарегистрироваться на главной вкладке приложения. Заполнить поля: код мед. учреждения и ФИО врача. Также ФИО врача можно будет поменять непосредственно в самом акте имплантации, если появится такая необходимость." />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:text="Акт имплантации."
+            android:textSize="20sp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Для того, чтобы добавить акт имплантации необходимо перейти на вкладку “Акты имплантации” (картинка), там вы увидите 2 кнопки: “Добавить акт” и “Отправить данные”." />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:text="Добавить акт."
+            android:textSize="20sp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/textView6"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="При нажатии на кнопку “Добавить акт” Вам будем предложено заполнить следующие поля: ФИО пациента, № и/б, дата операции, ФИО врача и добавить комментарий. Далее программа предложит Вам считать штрихкоды с документа. Мануал по считыванию штрих кодов можно найти ниже." />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:text="Считать коды."
+            android:textSize="20sp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/textView7"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Данная кнопка используется только для считывания ОДИНАРНЫХ штрихкодов. Для считывание штрих кода необходимо навести на него камеру мобильного телефона и нажать на появившуюся на нем рамочку. В нижней части экрана появится код считанного штрихкода. По завершению считывания всех штрихкодов необходимо поместить акт полностью в окно камеры и нажать кнопку “Сделать фото акта”.
+После нажимаем кнопку “Назад” и возвращаемся к ранее открытому акту." />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:text="Двойной штрих код."
+            android:textSize="20sp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/textView8"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Данная кнопки используется только в том случае, есои возникла необходимость считать двойной штрих код. Коды сканируются по очереди, так же нажимая на рамочку сначала вокруг первой части штрих кода, далее: вокруг второй." />
+
+        <TextView
+            android:id="@+id/textView9"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="После заполнения документа ОБЯЗАТЕЛЬНО проверьте данные по кнопке “Показать данные” и сохраните. ВНИМАНИЕ: документ будет сохранен только в том случае, если была нажата кнопка “Сохранить данные”, в противном случае данные не сохранятся." />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:text="Инвентаризация."
+            android:textSize="20sp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/textView12"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Работа в режиме “Инвентаризация” происходит аналогичным образом с работой в режиме “Акты имплантации”." />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:text="Отправить данные."
+            android:textSize="20sp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="После нажатия кнопки “Отправить данные” данные об актах собираются в пакеты и отправляются на сервер. Пожалуйста, не нажимайте кнопку “Отправить данные” несколько раз, это может нарушить работу приложения. После того как данные отправятся, вы получите сообщение об успешной отправке, а сами данные удалятся с вашего телефона. В случае, если отправка не удастся, вы получите сообщение, что данные не отправлены." />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:text="В случае возникновения ошибок в работе приложения"
+            android:textSize="20sp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="перезапустите приложение и попробуйте снова. Если ситуация не поменяется, просьба отправить письмо на почту: (тут должна быть почта), мы разберемся с проблемой в ближайшее время. В письме указать случившуюся проблему и Ваш контактный номер телефона для связи." />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="40dp"
+            android:textSize="20sp"
+            android:textStyle="bold" />
+
+    </LinearLayout>
+</ScrollView>

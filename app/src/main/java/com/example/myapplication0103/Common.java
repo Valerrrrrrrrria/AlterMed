@@ -289,7 +289,7 @@ public class Common {
         String photoName = UUID.randomUUID().toString();
         String url = "https://test.4lpu.ru/upl-img/" + photoName + ".b64";
         sendRequestPhoto.execute(url, photo);
-        return "https://test.4lpu.ru/data/img/" + photoName + ".b64";
+        return "https://test.4lpu.ru/data/img/" + photoName + ".png";
     }
 
     public static void deleteFromArraysById (int id) {

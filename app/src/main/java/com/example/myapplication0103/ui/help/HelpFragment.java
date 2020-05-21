@@ -16,20 +16,10 @@ import com.example.myapplication0103.R;
 
 public class HelpFragment extends Fragment {
 
-    private HelpViewModel helpViewModel;
-
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
-        helpViewModel =
-                ViewModelProviders.of(this).get(HelpViewModel.class);
+
         View root = inflater.inflate(R.layout.fragment_help, container, false);
-        final TextView textView = root.findViewById(R.id.text_help);
-        helpViewModel.getText().observe(getViewLifecycleOwner(), new Observer<String>() {
-            @Override
-            public void onChanged(@Nullable String s) {
-                textView.setText(s);
-            }
-        });
         return root;
     }
 }

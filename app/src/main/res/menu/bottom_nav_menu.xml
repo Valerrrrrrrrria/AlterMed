@@ -4,7 +4,8 @@
     <item
         android:id="@+id/navigation_home"
         android:icon="@android:drawable/ic_menu_add"
-        android:title="Вход" />
+        android:title="Вход"
+        android:visible="true" />
 
     <item
         android:id="@+id/navigation_dashboard"
@@ -20,6 +21,6 @@
     <item
         android:id="@+id/navigation_help"
         android:icon="@android:drawable/ic_menu_help"
-        android:title="Справка" />
+        android:title="Помощь" />
 
 </menu>
