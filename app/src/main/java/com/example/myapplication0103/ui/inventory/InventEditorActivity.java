@@ -90,6 +90,17 @@ public class InventEditorActivity extends AppCompatActivity {
             dualBarcodes_array.clear();
             barcodes_listViewArray.clear();
 
+            if (InventoryFragment.is_clear_after_send == false) {
+
+                Common.clearArraysInvent();
+                // читаем всю базу актов, заполняем массивы
+                Cursor cursor = InventoryFragment.database.query(DBHelperInvent.TABLE_ACTS, null,null,null,null,null,null); //пока без сортировок и группировок, поэтому null
+                DBHelperInvent.readDBActs(cursor);
+                cursor.close();
+                // меняем значение is_clear
+                InventoryFragment.is_clear_after_send = true;
+            }
+
             date_textView.setText(InventoryFragment.dates_arrayList.get(actId));
             comment_textView.setText(InventoryFragment.comments_arrayList.get(actId));
 
@@ -116,6 +127,17 @@ public class InventEditorActivity extends AppCompatActivity {
             barcodes_array.clear();
             dualBarcodes_array.clear();
             barcodes_listViewArray.clear();
+
+            if (InventoryFragment.is_clear_after_send == false) {
+
+                Common.clearArraysInvent();
+                // читаем всю базу актов, заполняем массивы
+                Cursor cursor = InventoryFragment.database.query(DBHelperInvent.TABLE_ACTS, null,null,null,null,null,null); //пока без сортировок и группировок, поэтому null
+                DBHelperInvent.readDBActs(cursor);
+                cursor.close();
+                // меняем значение is_clear
+                InventoryFragment.is_clear_after_send = true;
+            }
 
             // работаем с датой
             Calendar date = Calendar.getInstance();

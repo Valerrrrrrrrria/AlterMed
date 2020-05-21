@@ -44,7 +44,9 @@ public class SendRequest extends AsyncTask<String, Void, String> {
     protected String doInBackground(String... params) {
 
         try {
-            String url = params[0] + "appTest5.xml";
+            String url;
+            if (m_isImpl) url = params[0] + ".imp.xml";
+            else url = params[0] + ".inv.xml";
 
             URL obj = new URL(url);
             String authStr = m_user + ":" + m_pass;

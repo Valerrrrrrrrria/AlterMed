@@ -43,6 +43,7 @@ public class InventoryFragment extends Fragment {
 
     // Ответ сервера
     public static int responseCode;
+    public static boolean is_clear_after_send = true;
 
     // Для JSON
     public static ArrayList<String> photo1_arrayList;
@@ -227,6 +228,8 @@ public class InventoryFragment extends Fragment {
                     // 5. Разблокируем кнопку
                     send_button.setEnabled(true);
                 } else Log.i("INFO", "Нечего отправлять");
+
+                is_clear_after_send = false;
             }
         });
 

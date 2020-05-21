@@ -126,6 +126,18 @@ public class ActsEditorActivity extends AppCompatActivity {
             barcodes_listViewArray.clear();
             //barcodes_arrayAdapter.notifyDataSetChanged();
 
+            Log.i("IS_CLEAR", "" + ActsFragment.is_clear_after_send);
+
+            if (ActsFragment.is_clear_after_send == false) {
+                Common.clearArrays();
+                // читаем всю базу актов, заполняем массивы
+                Cursor cursor = ActsFragment.database.query(DBHelper.TABLE_ACTS, null,null,null,null,null,null); //пока без сортировок и группировок, поэтому null
+                DBHelper.readMyDatabaseActs(cursor);
+                cursor.close();
+                // меняем значение is_clear
+                ActsFragment.is_clear_after_send = true;
+            }
+
             patName_textView.setText(ActsFragment.patName_arrayList.get(actId));
             date_textView.setText(ActsFragment.dates_arrayList.get(actId));
             comment_textView.setText(ActsFragment.comments_arrayList.get(actId));
@@ -161,6 +173,18 @@ public class ActsEditorActivity extends AppCompatActivity {
             dualBarcodes_array.clear();
             barcodes_listViewArray.clear();
             //barcodes_arrayAdapter.notifyDataSetChanged();
+
+            Log.i("IS_CLEAR", "" + ActsFragment.is_clear_after_send);
+
+            if (ActsFragment.is_clear_after_send == false) {
+                Common.clearArrays();
+                // читаем всю базу актов, заполняем массивы
+                Cursor cursor = ActsFragment.database.query(DBHelper.TABLE_ACTS, null,null,null,null,null,null); //пока без сортировок и группировок, поэтому null
+                DBHelper.readMyDatabaseActs(cursor);
+                cursor.close();
+                // меняем значение is_clear
+                ActsFragment.is_clear_after_send = true;
+            }
 
             drName_textView.setText(drName); // Заносим имя доктора в поле ФИО Доктора
 

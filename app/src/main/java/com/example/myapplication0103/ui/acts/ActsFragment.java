@@ -63,6 +63,10 @@ public class ActsFragment extends Fragment {
     // Ответ сервера
     public static int responseCode;
 
+    // Количество отправленных актов. Делаем для того, чтобы можно было понять, когда все акты отправлены
+    //public static int send_id = 0;
+    public static boolean is_clear_after_send = true;
+
     public static TextView info_textView;
 
 
@@ -182,16 +186,8 @@ public class ActsFragment extends Fragment {
             public void onClick(View v) {
                 DBHelper.clearDatabase(database, DBHelper.TABLE_ACTS);
                 DBHelper.clearDatabase(database, DBHelper.TABLE_BARCODESACTS);
-                patName_arrayList.clear();
-                dates_arrayList.clear();
-                comments_arrayList.clear();
-                id_arrayList.clear();
-                drName_arrayList.clear();
-                historyNumb_arrayList.clear();
-                uniq_arrayList.clear();
-                outputs_arrayList.clear();
+                Common.clearArrays();
                 outputs_arrayAdapter.notifyDataSetChanged();
-                photoOfAct = null;
             }
         });
 
@@ -199,29 +195,21 @@ public class ActsFragment extends Fragment {
         send_button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                // чистим все массивы
-//                patName_arrayList.clear();
-//                dates_arrayList.clear();
-//                comments_arrayList.clear();
-//                id_arrayList.clear();
-//                drName_arrayList.clear();
-//                historyNumb_arrayList.clear();
-//                uniq_arrayList.clear();
-//                outputs_arrayList.clear();
-//                photoOfAct = null;
-                Common.clearArrays();
+                Common.clearArrays(); // Чистим все массивы
 
-                // читаем всю базу
+                // читаем всю базу актов, заполняем массивы
                 Cursor cursor = database.query(DBHelper.TABLE_ACTS, null,null,null,null,null,null); //пока без сортировок и группировок, поэтому null
                 DBHelper.readMyDatabaseActs(cursor);
                 cursor.close();
 
-
                 responseCode = 0;
+                //send_id = 0;
+
+                send_button.setEnabled(false);
+
                 if (id_arrayList.size() != 0) {
                     // И тогда что же мы делаем?
                     // 0. блокируем кнопку отправки
-                    send_button.setEnabled(false);
                     // --- И так по кругу
 
                     //int id_i = id_arrayList.size();
@@ -276,7 +264,7 @@ public class ActsFragment extends Fragment {
                         // 2. Отправляем JSON объект
                         SendRequest sendRequest = new SendRequest(i, database, true, false, "valeria", "AZdWD89Ej6HNCUmV");
                         //sendRequest.execute("https://test.4lpu.ru/upload_lua/impl" + outputs_arrayList.get(i) + ".xml", message);
-                        sendRequest.execute("https://test.4lpu.ru/upl-imp/" + outputs_arrayList.get(i) + ".xml", message);
+                        sendRequest.execute("https://test.4lpu.ru/upl-imp/" + outputs_arrayList.get(i), message);
 
                         i--;
 
@@ -290,6 +278,8 @@ public class ActsFragment extends Fragment {
                     send_button.setEnabled(true);
                 } else Log.i("INFO", "Нечего отправлять");
 
+                is_clear_after_send = false;
+                Log.i("ISCLEAR", "" + is_clear_after_send);
             }
         });
         //dbHelper.close();

@@ -314,6 +314,7 @@ public class Common {
         ActsFragment.historyNumb_arrayList.clear();
         ActsFragment.uniq_arrayList.clear();
         ActsFragment.outputs_arrayList.clear();
+        ActsFragment.photoOfAct = null;
     }
 
     public static void clearArraysInvent() {
