@@ -285,7 +285,7 @@ public class Common {
     }
 
     public static String sendPhoto(String photo) {
-        SendRequestPhoto sendRequestPhoto = new SendRequestPhoto("valeria", "AZdWD89Ej6HNCUmV");
+        SendRequestPhoto sendRequestPhoto = new SendRequestPhoto("valeria", "aJKyT7xkf6vWY7ws");
         String photoName = UUID.randomUUID().toString();
         String url = "https://test.4lpu.ru/upl-img/" + photoName + ".b64";
         sendRequestPhoto.execute(url, photo);

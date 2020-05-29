@@ -20,6 +20,8 @@ import java.io.OutputStreamWriter;
 import java.net.HttpURLConnection;
 import java.net.URL;
 
+import javax.net.ssl.HttpsURLConnection;
+
 public class SendRequest extends AsyncTask<String, Void, String> {
     int m_i;
     SQLiteDatabase m_database;
@@ -51,7 +53,7 @@ public class SendRequest extends AsyncTask<String, Void, String> {
             URL obj = new URL(url);
             String authStr = m_user + ":" + m_pass;
 
-            HttpURLConnection urlConnection = (HttpURLConnection) obj.openConnection();
+            HttpsURLConnection urlConnection = (HttpsURLConnection) obj.openConnection();
             urlConnection.setRequestMethod("POST");
             urlConnection.setDoInput(true);
             urlConnection.setDoOutput(true);
