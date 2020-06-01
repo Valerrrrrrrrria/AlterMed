@@ -264,7 +264,7 @@ public class ActsFragment extends Fragment {
                         // 2. Отправляем JSON объект
                         SendRequest sendRequest = new SendRequest(i, database, true, false, "valeria", "aJKyT7xkf6vWY7ws");
                         //sendRequest.execute("https://test.4lpu.ru/upload_lua/impl" + outputs_arrayList.get(i) + ".xml", message);
-                        sendRequest.execute("https://test.4lpu.ru/upl-imp/" + outputs_arrayList.get(i), message);
+                        sendRequest.execute("https://test.4lpu.ru/upl-imp/" + hospitalId + "_" + dates_arrayList.get(i) + "_" + uniq_arrayList.get(i), message);
 
                         i--;
 
