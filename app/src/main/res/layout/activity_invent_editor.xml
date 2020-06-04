@@ -45,14 +45,14 @@
                 android:id="@+id/beginInvent_button"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Начать инвентаризацию" />
+                android:text="Начать инвентаризацию (Одинарные коды)" />
 
 
             <Button
                 android:id="@+id/dualBarcode_button2"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Двойные коды" />
+                android:text="Начать инвентаризацию (Двойные коды)" />
 
             <Button
                 android:id="@+id/saveInvent_button"

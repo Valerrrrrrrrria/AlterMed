@@ -83,25 +83,19 @@
                 android:layout_height="wrap_content"
                 android:layout_alignParentBottom="true"
                 android:layout_centerHorizontal="true"
-                android:text="Считать коды" />
+                android:text="Считать одинарные коды" />
 
             <Button
                 android:id="@+id/dualBarcode_button"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Двойной штрихкод" />
+                android:text="Считать двойные коды" />
 
             <Button
                 android:id="@+id/saveToActs"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="Сохранить данные" />
-
-            <Button
-                android:id="@+id/showPhoto_button"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="(Тест Показать фото акта)" />
 
             <ImageView
                 android:id="@+id/showPhoto_imageView"

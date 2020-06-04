@@ -58,55 +58,55 @@ public class DBHelper extends SQLiteOpenHelper {
         db.execSQL("create table " + TABLE_BARCODESACTS + "(" + KEY_ACTBARID + " integer,"
                 + KEY_BARCODESACTS + " text," + KEY_PHOTO + " text," + KEY_PHOTO2 + " text" + ")");
 
-        ContentValues contentValues = new ContentValues();
-        contentValues.put(DBHelper.KEY_ACTID, 1);
-        contentValues.put(DBHelper.KEY_DATE, "29.03.2020");
-        contentValues.put(DBHelper.KEY_NUMB, "");
-        contentValues.put(DBHelper.KEY_DRNAME, "");
-        contentValues.put(DBHelper.KEY_PATNAME, "Имя пациента1");
-        contentValues.put(DBHelper.KEY_HISTORY, "123455443212124");
-        contentValues.put(DBHelper.KEY_COMMENT, "Комментарий");
-        contentValues.put(DBHelper.KEY_ISSENT, 0);
-        db.insert(DBHelper.TABLE_ACTS, null, contentValues);
-
-        ContentValues contentValues4 = new ContentValues();
-        contentValues4.put(DBHelper.KEY_ACTID, 1);
-        contentValues4.put(DBHelper.KEY_DATE, "29.03.2020");
-        contentValues4.put(DBHelper.KEY_NUMB, "");
-        contentValues4.put(DBHelper.KEY_DRNAME, ""); //Посмотреть, как считать из Shared Pref
-        contentValues4.put(DBHelper.KEY_PATNAME, "Имя пациента2");
-        contentValues.put(DBHelper.KEY_HISTORY, "123455443212124");
-        contentValues4.put(DBHelper.KEY_COMMENT, "Комментарий");
-        contentValues4.put(DBHelper.KEY_ISSENT, 0);
-        db.insert(DBHelper.TABLE_ACTS, null, contentValues4);
-
-
-        ContentValues contentValues1 = new ContentValues();
-        contentValues1.put(DBHelper.KEY_ACTBARID, 1);
-        contentValues1.put(DBHelper.KEY_BARCODESACTS, "111");
-        db.insert(DBHelper.TABLE_BARCODESACTS, null, contentValues1);
-
-        ContentValues contentValues2 = new ContentValues();
-        contentValues2.put(DBHelper.KEY_ACTBARID, 1);
-        contentValues2.put(DBHelper.KEY_BARCODESACTS, "222");
-        db.insert(DBHelper.TABLE_BARCODESACTS, null, contentValues2);
-
-        ContentValues contentValues3 = new ContentValues();
-        contentValues3.put(DBHelper.KEY_ACTBARID, 2);
-        contentValues3.put(DBHelper.KEY_BARCODESACTS, "333");
-        db.insert(DBHelper.TABLE_BARCODESACTS, null, contentValues3);
-
-
-
-        Log.i("ONCREATE", "Только заполнили TABLE_ACTS");
-        Cursor cursor = db.query(DBHelper.TABLE_ACTS, null,null,null,null,null,null); //пока без сортировок и группировок, поэтому null
-        outputMyDatabaseActs(cursor);
-        cursor.close();
-
-        Log.i("ONCREATE", "Только заполнили TABLE_BARCODESACTS");
-        Cursor cursor1 = db.query(DBHelper.TABLE_BARCODESACTS, null,null,null,null,null,null); //пока без сортировок и группировок, поэтому null
-        outputMyDBActsBar(cursor1);
-        cursor1.close();
+//        ContentValues contentValues = new ContentValues();
+//        contentValues.put(DBHelper.KEY_ACTID, 1);
+//        contentValues.put(DBHelper.KEY_DATE, "29.03.2020");
+//        contentValues.put(DBHelper.KEY_NUMB, "");
+//        contentValues.put(DBHelper.KEY_DRNAME, "");
+//        contentValues.put(DBHelper.KEY_PATNAME, "Имя пациента1");
+//        contentValues.put(DBHelper.KEY_HISTORY, "123455443212124");
+//        contentValues.put(DBHelper.KEY_COMMENT, "Комментарий");
+//        contentValues.put(DBHelper.KEY_ISSENT, 0);
+//        db.insert(DBHelper.TABLE_ACTS, null, contentValues);
+//
+//        ContentValues contentValues4 = new ContentValues();
+//        contentValues4.put(DBHelper.KEY_ACTID, 1);
+//        contentValues4.put(DBHelper.KEY_DATE, "29.03.2020");
+//        contentValues4.put(DBHelper.KEY_NUMB, "");
+//        contentValues4.put(DBHelper.KEY_DRNAME, ""); //Посмотреть, как считать из Shared Pref
+//        contentValues4.put(DBHelper.KEY_PATNAME, "Имя пациента2");
+//        contentValues.put(DBHelper.KEY_HISTORY, "123455443212124");
+//        contentValues4.put(DBHelper.KEY_COMMENT, "Комментарий");
+//        contentValues4.put(DBHelper.KEY_ISSENT, 0);
+//        db.insert(DBHelper.TABLE_ACTS, null, contentValues4);
+//
+//
+//        ContentValues contentValues1 = new ContentValues();
+//        contentValues1.put(DBHelper.KEY_ACTBARID, 1);
+//        contentValues1.put(DBHelper.KEY_BARCODESACTS, "111");
+//        db.insert(DBHelper.TABLE_BARCODESACTS, null, contentValues1);
+//
+//        ContentValues contentValues2 = new ContentValues();
+//        contentValues2.put(DBHelper.KEY_ACTBARID, 1);
+//        contentValues2.put(DBHelper.KEY_BARCODESACTS, "222");
+//        db.insert(DBHelper.TABLE_BARCODESACTS, null, contentValues2);
+//
+//        ContentValues contentValues3 = new ContentValues();
+//        contentValues3.put(DBHelper.KEY_ACTBARID, 2);
+//        contentValues3.put(DBHelper.KEY_BARCODESACTS, "333");
+//        db.insert(DBHelper.TABLE_BARCODESACTS, null, contentValues3);
+//
+//
+//
+//        Log.i("ONCREATE", "Только заполнили TABLE_ACTS");
+//        Cursor cursor = db.query(DBHelper.TABLE_ACTS, null,null,null,null,null,null); //пока без сортировок и группировок, поэтому null
+//        outputMyDatabaseActs(cursor);
+//        cursor.close();
+//
+//        Log.i("ONCREATE", "Только заполнили TABLE_BARCODESACTS");
+//        Cursor cursor1 = db.query(DBHelper.TABLE_BARCODESACTS, null,null,null,null,null,null); //пока без сортировок и группировок, поэтому null
+//        outputMyDBActsBar(cursor1);
+//        cursor1.close();
 
     }
 

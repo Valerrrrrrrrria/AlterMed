@@ -342,32 +342,32 @@ public class ActsEditorActivity extends AppCompatActivity {
             }
         });
 
-        final ImageView showPhoto_imageView = (ImageView) findViewById(R.id.showPhoto_imageView);
-
-        final Button showPhoto_button = findViewById(R.id.showPhoto_button);
-        showPhoto_button.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                ActsFragment.photoOfAct = null;
-                int id = ActsFragment.id_arrayList.get(actId);
-
-                Log.i("ID = ", "" + id);
-
-                String selection1;
-                selection1 = "_id = " + id;
-                Cursor c = ActsFragment.database.query(DBHelper.TABLE_ACTS, null, selection1, null, null,
-                        null, null);
-                DBHelper.readMyDatabaseActs(c);
-                c.close();
-
-                byte[] newImg3 = Base64.decode(ActsFragment.photoOfAct, 0);
-                InputStream inputStream2  = new ByteArrayInputStream(newImg3);
-                Bitmap bitmap2  = BitmapFactory.decodeStream(inputStream2);
-                Log.i("", "" + bitmap2.getWidth() + ", " + bitmap2.getHeight());
-
-                showPhoto_imageView.setImageBitmap(bitmap2);
-            }
-        });
+//        final ImageView showPhoto_imageView = (ImageView) findViewById(R.id.showPhoto_imageView);
+//
+//        final Button showPhoto_button = findViewById(R.id.showPhoto_button);
+//        showPhoto_button.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                ActsFragment.photoOfAct = null;
+//                int id = ActsFragment.id_arrayList.get(actId);
+//
+//                Log.i("ID = ", "" + id);
+//
+//                String selection1;
+//                selection1 = "_id = " + id;
+//                Cursor c = ActsFragment.database.query(DBHelper.TABLE_ACTS, null, selection1, null, null,
+//                        null, null);
+//                DBHelper.readMyDatabaseActs(c);
+//                c.close();
+//
+//                byte[] newImg3 = Base64.decode(ActsFragment.photoOfAct, 0);
+//                InputStream inputStream2  = new ByteArrayInputStream(newImg3);
+//                Bitmap bitmap2  = BitmapFactory.decodeStream(inputStream2);
+//                Log.i("", "" + bitmap2.getWidth() + ", " + bitmap2.getHeight());
+//
+//                showPhoto_imageView.setImageBitmap(bitmap2);
+//            }
+//        });
 
         final Button saveToActs_button = findViewById(R.id.saveToActs);
         saveToActs_button.setOnClickListener(new View.OnClickListener() {

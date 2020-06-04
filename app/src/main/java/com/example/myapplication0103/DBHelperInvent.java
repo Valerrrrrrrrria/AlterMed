@@ -46,47 +46,47 @@ public class DBHelperInvent extends SQLiteOpenHelper {
         db.execSQL("create table " + TABLE_BARCODES + "(" + KEY_ACTBARID + " integer,"
                 + KEY_BARCODES + " text," + KEY_PHOTO1 + " text," + KEY_PHOTO2 + " text" + ")");
 
-        ContentValues contentValues = new ContentValues();
-        contentValues.put(DBHelperInvent.KEY_ACTID, 1);
-        contentValues.put(DBHelperInvent.KEY_DATE, "29.03.2020");
-        contentValues.put(DBHelperInvent.KEY_NUMB, "1");
-        contentValues.put(DBHelperInvent.KEY_COMMENT, "Комментарий");
-        contentValues.put(DBHelperInvent.KEY_ISSENT, 0);
-        db.insert(DBHelperInvent.TABLE_ACTS, null, contentValues);
-
-        ContentValues contentValues4 = new ContentValues();
-        contentValues4.put(DBHelperInvent.KEY_ACTID, 1);
-        contentValues4.put(DBHelperInvent.KEY_DATE, "29.03.2020");
-        contentValues4.put(DBHelperInvent.KEY_NUMB, "");
-        contentValues4.put(DBHelperInvent.KEY_COMMENT, "Комментарий");
-        contentValues4.put(DBHelperInvent.KEY_ISSENT, 0);
-        db.insert(DBHelperInvent.TABLE_ACTS, null, contentValues4);
-
-
-        ContentValues contentValues1 = new ContentValues();
-        contentValues1.put(DBHelperInvent.KEY_ACTBARID, 1);
-        contentValues1.put(DBHelperInvent.KEY_BARCODES, "111");
-        db.insert(DBHelperInvent.TABLE_BARCODES, null, contentValues1);
-
-        ContentValues contentValues2 = new ContentValues();
-        contentValues2.put(DBHelperInvent.KEY_ACTBARID, 1);
-        contentValues2.put(DBHelperInvent.KEY_BARCODES, "222");
-        db.insert(DBHelperInvent.TABLE_BARCODES, null, contentValues2);
-
-        ContentValues contentValues3 = new ContentValues();
-        contentValues3.put(DBHelperInvent.KEY_ACTBARID, 2);
-        contentValues3.put(DBHelperInvent.KEY_BARCODES, "333");
-        db.insert(DBHelperInvent.TABLE_BARCODES, null, contentValues3);
-
-        Log.i("ONCREATE", "Только заполнили TABLE_ACTS");
-        Cursor cursor = db.query(DBHelperInvent.TABLE_ACTS, null,null,null,null,null,null); //пока без сортировок и группировок, поэтому null
-        outputDBActs(cursor);
-        cursor.close();
-
-        Log.i("ONCREATE", "Только заполнили TABLE_BARCODES");
-        Cursor cursor1 = db.query(DBHelperInvent.TABLE_BARCODES, null,null,null,null,null,null); //пока без сортировок и группировок, поэтому null
-        outputDBBarcodes(cursor1);
-        cursor1.close();
+//        ContentValues contentValues = new ContentValues();
+//        contentValues.put(DBHelperInvent.KEY_ACTID, 1);
+//        contentValues.put(DBHelperInvent.KEY_DATE, "29.03.2020");
+//        contentValues.put(DBHelperInvent.KEY_NUMB, "1");
+//        contentValues.put(DBHelperInvent.KEY_COMMENT, "Комментарий");
+//        contentValues.put(DBHelperInvent.KEY_ISSENT, 0);
+//        db.insert(DBHelperInvent.TABLE_ACTS, null, contentValues);
+//
+//        ContentValues contentValues4 = new ContentValues();
+//        contentValues4.put(DBHelperInvent.KEY_ACTID, 1);
+//        contentValues4.put(DBHelperInvent.KEY_DATE, "29.03.2020");
+//        contentValues4.put(DBHelperInvent.KEY_NUMB, "");
+//        contentValues4.put(DBHelperInvent.KEY_COMMENT, "Комментарий");
+//        contentValues4.put(DBHelperInvent.KEY_ISSENT, 0);
+//        db.insert(DBHelperInvent.TABLE_ACTS, null, contentValues4);
+//
+//
+//        ContentValues contentValues1 = new ContentValues();
+//        contentValues1.put(DBHelperInvent.KEY_ACTBARID, 1);
+//        contentValues1.put(DBHelperInvent.KEY_BARCODES, "111");
+//        db.insert(DBHelperInvent.TABLE_BARCODES, null, contentValues1);
+//
+//        ContentValues contentValues2 = new ContentValues();
+//        contentValues2.put(DBHelperInvent.KEY_ACTBARID, 1);
+//        contentValues2.put(DBHelperInvent.KEY_BARCODES, "222");
+//        db.insert(DBHelperInvent.TABLE_BARCODES, null, contentValues2);
+//
+//        ContentValues contentValues3 = new ContentValues();
+//        contentValues3.put(DBHelperInvent.KEY_ACTBARID, 2);
+//        contentValues3.put(DBHelperInvent.KEY_BARCODES, "333");
+//        db.insert(DBHelperInvent.TABLE_BARCODES, null, contentValues3);
+//
+//        Log.i("ONCREATE", "Только заполнили TABLE_ACTS");
+//        Cursor cursor = db.query(DBHelperInvent.TABLE_ACTS, null,null,null,null,null,null); //пока без сортировок и группировок, поэтому null
+//        outputDBActs(cursor);
+//        cursor.close();
+//
+//        Log.i("ONCREATE", "Только заполнили TABLE_BARCODES");
+//        Cursor cursor1 = db.query(DBHelperInvent.TABLE_BARCODES, null,null,null,null,null,null); //пока без сортировок и группировок, поэтому null
+//        outputDBBarcodes(cursor1);
+//        cursor1.close();
 
     }
 
