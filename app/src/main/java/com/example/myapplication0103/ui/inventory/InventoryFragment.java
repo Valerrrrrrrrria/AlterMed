@@ -173,6 +173,7 @@ public class InventoryFragment extends Fragment {
         send_button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                info_textView.setText("Ожидайте, данные отправляются!");
                 responseCode = 0;
 
                 Common.clearArraysInvent();
@@ -187,6 +188,7 @@ public class InventoryFragment extends Fragment {
                     send_button.setEnabled(false);
                     // --- И так по кругу
                     int i = id_arrayList.size() - 1;
+                    int size = id_arrayList.size();
                     Log.i("ID_ARRAY.SIZE", "" + i);
 
                     //for (int i = 0; i < id_i; i++) {
@@ -216,7 +218,7 @@ public class InventoryFragment extends Fragment {
                         Log.i("XML", message);
 
                         // 2. Отправляем XML объект
-                        SendRequest sendRequest = new SendRequest(i, database, false, true, "valeria", "aJKyT7xkf6vWY7ws");
+                        SendRequest sendRequest = new SendRequest(i, database, false, true, "valeria", "aJKyT7xkf6vWY7ws", size);
                         sendRequest.execute("https://test.4lpu.ru/upl-inv/"  + hospitalId + "_" + dates_arrayList.get(i)+ "_" + uniq_arrayList.get(i), message);
 
                         // 3. Ждем ответа сервера

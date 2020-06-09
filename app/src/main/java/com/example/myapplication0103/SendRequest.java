@@ -31,14 +31,17 @@ public class SendRequest extends AsyncTask<String, Void, String> {
     boolean m_isInvent = false;
     String m_user;
     String m_pass;
+    int m_size;
+    int ourSize = 0;
 
-    public SendRequest (int i, SQLiteDatabase database, boolean isImpl, boolean isInvent, String user, String pass) {
+    public SendRequest (int i, SQLiteDatabase database, boolean isImpl, boolean isInvent, String user, String pass, int size) {
         m_i = i;
         m_database = database;
         m_isImpl = isImpl;
         m_isInvent = isInvent;
         m_pass = pass;
         m_user = user;
+        m_size = size; //понадобится потом для блокировки/разблокировки кнопки
     }
 
 
@@ -89,8 +92,10 @@ public class SendRequest extends AsyncTask<String, Void, String> {
     protected void onPostExecute(String message) {
 
         Log.i("INFO","Документ отправлен");
+        ourSize +=1;
         //Log.i("response = ","" + responseCode);
 if (m_isImpl) {
+
     if (responseCode == 200) {
         // Удалить с базы
         Log.i("Size", "" + ActsFragment.id_arrayList.size());
@@ -116,7 +121,6 @@ if (m_isImpl) {
     Cursor cursor = m_database.query(DBHelper.TABLE_ACTS, null, null, null, null, null, null); //пока без сортировок и группировок, поэтому null
     DBHelper.readDBActsForOutputOnly(cursor);
     cursor.close();
-
     ActsFragment.outputs_arrayAdapter.notifyDataSetChanged();
 }
 

@@ -82,6 +82,7 @@ public class ActsFragment extends Fragment {
         Log.i("hospitalId ", "" + hospitalId);
 
         final ListView acts_listView = (ListView) root.findViewById(R.id.acts_listView);
+
         info_textView = (TextView) root.findViewById(R.id.info_textView);
         id_arrayList = new ArrayList<>();
         uniq_arrayList = new ArrayList<>();
@@ -191,10 +192,13 @@ public class ActsFragment extends Fragment {
             }
         });
 
+
         final Button send_button = (Button) root.findViewById(R.id.send_button);
+
         send_button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                info_textView.setText("Ожидайте, данные отправляются!");
                 Common.clearArrays(); // Чистим все массивы
 
                 // читаем всю базу актов, заполняем массивы
@@ -214,6 +218,7 @@ public class ActsFragment extends Fragment {
 
                     //int id_i = id_arrayList.size();
                     int i = id_arrayList.size() - 1;
+                    int size = id_arrayList.size();
 
                     //for (int i = 0; i < id_i; i++) {
                     do {
@@ -262,7 +267,7 @@ public class ActsFragment extends Fragment {
 
 
                         // 2. Отправляем JSON объект
-                        SendRequest sendRequest = new SendRequest(i, database, true, false, "valeria", "aJKyT7xkf6vWY7ws");
+                        SendRequest sendRequest = new SendRequest(i, database, true, false, "valeria", "aJKyT7xkf6vWY7ws", size);
                         //sendRequest.execute("https://test.4lpu.ru/upload_lua/impl" + outputs_arrayList.get(i) + ".xml", message);
                         sendRequest.execute("https://test.4lpu.ru/upl-imp/" + hospitalId + "_" + dates_arrayList.get(i) + "_" + uniq_arrayList.get(i), message);
 
