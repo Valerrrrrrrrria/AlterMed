@@ -93,36 +93,35 @@ public class SendRequest extends AsyncTask<String, Void, String> {
 
         Log.i("INFO","Документ отправлен");
         ourSize +=1;
-        //Log.i("response = ","" + responseCode);
-if (m_isImpl) {
+        if (m_isImpl) {
 
-    if (responseCode == 200) {
-        // Удалить с базы
-        Log.i("Size", "" + ActsFragment.id_arrayList.size());
-        Log.i("", "" + m_i);
-//        Log.i("id_arrayList.get(m_i) =", "" + ActsFragment.id_arrayList.get(m_i));
-        DBHelper.deleteFromDatabase(m_database, DBHelper.TABLE_ACTS, m_i);
-        DBHelper.deleteFromDatabase(m_database, DBHelper.TABLE_BARCODESACTS, m_i);
+            if (responseCode == 200) {
+                // Удалить с базы
+                Log.i("Size", "" + ActsFragment.id_arrayList.size());
+                Log.i("", "" + m_i);
+        //        Log.i("id_arrayList.get(m_i) =", "" + ActsFragment.id_arrayList.get(m_i));
+                DBHelper.deleteFromDatabase(m_database, DBHelper.TABLE_ACTS, m_i);
+                DBHelper.deleteFromDatabase(m_database, DBHelper.TABLE_BARCODESACTS, m_i);
 
-        // Удалить с массивов
-        //Common.deleteFromArraysById(0);
+                // Удалить с массивов
+                //Common.deleteFromArraysById(0);
 
-        ActsFragment.info_textView.setText("Данные отправлены");
+                ActsFragment.info_textView.setText("Данные отправлены");
 
-    } else {
-        Log.i("INFO", "Данные не отправлены, попробуйте позднее");
-        ActsFragment.info_textView.setText("Данные не отправлены, попробуйте позднее");
-    }
+            } else {
+                Log.i("INFO", "Данные не отправлены, попробуйте позднее");
+                ActsFragment.info_textView.setText("Данные не отправлены, попробуйте позднее");
+            }
 
 
-    ActsFragment.outputs_arrayList.clear();
+            ActsFragment.outputs_arrayList.clear();
 
-    // Читаем базу и выводим, если что-то осталось
-    Cursor cursor = m_database.query(DBHelper.TABLE_ACTS, null, null, null, null, null, null); //пока без сортировок и группировок, поэтому null
-    DBHelper.readDBActsForOutputOnly(cursor);
-    cursor.close();
-    ActsFragment.outputs_arrayAdapter.notifyDataSetChanged();
-}
+            // Читаем базу и выводим, если что-то осталось
+            Cursor cursor = m_database.query(DBHelper.TABLE_ACTS, null, null, null, null, null, null); //пока без сортировок и группировок, поэтому null
+            DBHelper.readDBActsForOutputOnly(cursor);
+            cursor.close();
+            ActsFragment.outputs_arrayAdapter.notifyDataSetChanged();
+        }
 
 
         if (m_isInvent) {
