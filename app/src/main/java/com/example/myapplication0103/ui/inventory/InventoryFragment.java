@@ -218,7 +218,7 @@ public class InventoryFragment extends Fragment {
                         Log.i("XML", message);
 
                         // 2. Отправляем XML объект
-                        SendRequest sendRequest = new SendRequest(i, database, false, true, "valeria", "aJKyT7xkf6vWY7ws", size);
+                        SendRequest sendRequest = new SendRequest(i, database, false, true, "", "", size);
                         sendRequest.execute("https://test.4lpu.ru/upl-inv/"  + hospitalId + "_" + dates_arrayList.get(i)+ "_" + uniq_arrayList.get(i), message);
 
                         // 3. Ждем ответа сервера
